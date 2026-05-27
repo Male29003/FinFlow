@@ -11,7 +11,6 @@ export class ThemeService {
    }
 
    private initTheme() {
-      // Check xem có đang chạy trên trình duyệt không (Tránh lỗi nếu bật SSR)
       if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
          const savedTheme = localStorage.getItem('app-theme');
          if (savedTheme === 'dark') {

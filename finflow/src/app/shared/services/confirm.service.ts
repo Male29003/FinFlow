@@ -30,7 +30,9 @@ export class ConfirmService {
    }
 
    respond(result: boolean) {
-      this.state.next({ show: false, title: '', message: '' }); // Đóng modal
+      // Đóng modal
+      this.state.next({ show: false, title: '', message: '' });
+
       if (this.resolveFn) {
          this.resolveFn(result);
          this.resolveFn = undefined;
