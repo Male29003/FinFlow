@@ -1,0 +1,96 @@
+.modal-overlay {
+   position: fixed;
+   inset: 0;
+   background: rgba(0, 0, 0, 0.4);
+   backdrop-filter: blur(4px);
+   z-index: 10000;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   animation: fadeIn 0.2s ease forwards;
+}
+
+.modal-content {
+   background: var(--bg-surface);
+   border: 1px solid var(--border-color);
+   width: 90%;
+   max-width: 400px;
+   border-radius: 16px;
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+   animation: scaleUp 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.modal-header {
+   padding: 1.5rem 1.5rem 0.5rem;
+   h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--text-main);
+      font-weight: 700;
+   }
+}
+
+.modal-body {
+   padding: 0.5rem 1.5rem 1.5rem;
+   p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+   }
+}
+
+.modal-footer {
+   padding: 1.25rem 1.5rem;
+   background: var(--bg-surface-hover);
+   border-top: 1px solid var(--border-color);
+   border-radius: 0 0 16px 16px;
+   display: flex;
+   justify-content: flex-end;
+   gap: 0.75rem;
+
+   .btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      &.btn-outline {
+         background: transparent;
+         border: 1px solid var(--border-color);
+         color: var(--text-main);
+         &:hover {
+            background: var(--border-color);
+         }
+      }
+      &.btn-danger {
+         background: rgb(var(--error-rgb));
+         color: white;
+         &:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+         }
+      }
+   }
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+   to {
+      opacity: 1;
+   }
+}
+@keyframes scaleUp {
+   from {
+      transform: scale(0.95);
+      opacity: 0;
+   }
+   to {
+      transform: scale(1);
+      opacity: 1;
+   }
+}
