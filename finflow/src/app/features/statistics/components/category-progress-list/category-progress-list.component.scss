@@ -1,0 +1,96 @@
+@use 'styles/variables' as var;
+
+.section-title {
+   font-size: 1.1rem;
+   font-weight: 700;
+   color: var(--text-main);
+   margin-bottom: 1rem;
+}
+.stat-card {
+   background: var(--bg-surface);
+   border: 1px solid var(--border-color);
+   border-radius: 16px;
+   padding: 1.5rem;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+.empty-state {
+   color: var(--text-muted);
+   text-align: center;
+   font-size: 0.9rem;
+   padding: 1rem 0;
+}
+.category-stat-item {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+   margin-bottom: 1.5rem;
+}
+.category-stat-item:last-child {
+   margin-bottom: 0;
+}
+.cat-icon {
+   width: 48px;
+   height: 48px;
+   background: var(--bg-surface-hover);
+   border-radius: 12px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 1.5rem;
+   flex-shrink: 0;
+}
+.cat-details {
+   flex: 1;
+}
+.cat-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 0.4rem;
+}
+.cat-name {
+   font-weight: 600;
+   font-size: 0.95rem;
+   color: var(--text-main);
+}
+.cat-amount {
+   font-weight: 700;
+   font-size: 0.95rem;
+}
+.text-success {
+   color: var.$color-success;
+}
+.text-error {
+   color: var.$color-error;
+}
+.progress-track {
+   width: 100%;
+   height: 8px;
+   background: var(--bg-root, #f3f4f6);
+   border-radius: 10px;
+   overflow: hidden;
+   margin-bottom: 0.4rem;
+}
+.progress-fill {
+   height: 100%;
+   border-radius: 10px;
+   transition: width 0.5s ease-out;
+}
+.expense-fill {
+   background-color: var.$color-error;
+   opacity: 0.85;
+}
+.income-fill {
+   background-color: var.$color-success;
+   opacity: 0.85;
+}
+.cat-footer {
+   display: flex;
+   justify-content: space-between;
+   font-size: 0.8rem;
+   color: var(--text-muted);
+}
+.cat-percent {
+   font-weight: 600;
+   color: var(--text-main);
+}

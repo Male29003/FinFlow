@@ -1,0 +1,249 @@
+<div class="page-container">
+   <!-- Header -->
+   <div class="page-header-actions">
+      <div class="header-text">
+         <h1 class="page-title">Thống kê & Báo cáo</h1>
+         <p class="text-muted">Phân tích dòng tiền theo từng tài khoản</p>
+      </div>
+   </div>
+
+   <!-- Filter -->
+   <div class="filter-panel">
+      <div class="filter-inputs">
+         <div class="form-group mb-0">
+            <label>Từ ngày</label>
+            <input type="date" [(ngModel)]="tuNgay" class="form-control" />
+         </div>
+         <div class="form-group mb-0">
+            <label>Đến ngày</label>
+            <input type="date" [(ngModel)]="denNgay" class="form-control" />
+         </div>
+      </div>
+      <button class="btn btn-primary filter-btn" (click)="loadData()" [disabled]="isLoading">
+         <ng-icon name="lucideFunnel"></ng-icon>
+         {{ isLoading ? 'Đang tải...' : 'Lọc dữ liệu' }}
+      </button>
+   </div>
+
+   <!-- Loading skeleton -->
+   <div class="skeleton-grid" *ngIf="isLoading">
+      <div class="skeleton-card" *ngFor="let i of [1, 2, 3]"></div>
+   </div>
+
+   <div class="content-wrapper" *ngIf="!isLoading">
+      <!-- tổng quan -->
+      <div class="summary-grid" *ngIf="data.length > 0">
+         <div class="summary-card income-card">
+            <div class="sc-icon">
+               <ng-icon name="lucideTrendingUp"></ng-icon>
+            </div>
+            <div class="sc-body">
+               <span class="sc-label">Tổng Thu</span>
+               <span class="sc-value income">+ {{ totalIncome | number: '1.0-0' }} ₫</span>
+               <span class="sc-sub">{{ totalIncomeCount }} giao dịch thu</span>
+            </div>
+         </div>
+
+         <div class="summary-card expense-card">
+            <div class="sc-icon">
+               <ng-icon name="lucideTrendingDown"></ng-icon>
+            </div>
+            <div class="sc-body">
+               <span class="sc-label">Tổng Chi</span>
+               <span class="sc-value expense">- {{ totalExpense | number: '1.0-0' }} ₫</span>
+               <span class="sc-sub">{{ totalExpenseCount }} giao dịch chi</span>
+            </div>
+         </div>
+      </div>
+
+      <!--biểu đồ-->
+      <div class="panel chart-panel">
+         <div class="panel-header">
+            <h3 class="panel-title">Biểu đồ đối soát Thu - Chi</h3>
+            <div class="chart-legend">
+               <span class="legend-dot income-dot"></span><span>Thu</span>
+               <span class="legend-dot expense-dot"></span><span>Chi</span>
+            </div>
+         </div>
+         <div class="panel-body chart-container">
+            <div *ngIf="data.length === 0" class="empty-state">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M3 9h18M9 21V9" />
+               </svg>
+               Không có dữ liệu trong khoảng thời gian này.
+            </div>
+            <app-grouped-bar-chart-by-account *ngIf="data.length > 0" [transactionData]="data">
+            </app-grouped-bar-chart-by-account>
+         </div>
+      </div>
+
+      <!-- thống kê theo thẻ loại goa dịch -->
+      <div class="top-stats-grid" *ngIf="!isLoading">
+         <app-category-progress-list
+            title="Chi tiêu chi tiết"
+            type="expense"
+            [data]="topExpenseCategories"
+            [totalAmount]="totalExpenseCat"
+         >
+         </app-category-progress-list>
+         <app-category-progress-list
+            title="Thu nhập chi tiết"
+            type="income"
+            [data]="topIncomeCategories"
+            [totalAmount]="totalIncomeCat"
+         >
+         </app-category-progress-list>
+      </div>
+
+      <!-- Data table -->
+      <div class="panel table-panel" *ngIf="data.length > 0">
+         <div class="panel-header">
+            <h3 class="panel-title">Chi tiết dòng tiền theo tài khoản</h3>
+            <span class="panel-count">{{ data.length }} tài khoản</span>
+         </div>
+         <div class="panel-body no-padding overflow-x-auto">
+            <table class="data-table detail-table">
+               <thead>
+                  <tr>
+                     <th></th>
+                     <th>Tài khoản</th>
+                     <th class="align-center">
+                        <span class="th-icon income-icon">↑</span> Số GD Thu
+                     </th>
+                     <th class="align-right">Tổng Thu</th>
+                     <th class="align-center">
+                        <span class="th-icon expense-icon">↓</span> Số GD Chi
+                     </th>
+                     <th class="align-right">Tổng Chi</th>
+                     <th class="align-right">Số dư ròng</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let item of data; let i = index">
+                     <td class="rank-cell">
+                        <span class="rank-num">{{ i + 1 }}</span>
+                     </td>
+                     <td data-label="Tài khoản:">
+                        <div class="acc-name-wrapper">
+                           <div class="acc-avatar">
+                              {{ item.tenTaiKhoan?.charAt(0) | uppercase }}
+                           </div>
+                           <div class="acc-info">
+                              <strong>{{ item.tenTaiKhoan }}</strong>
+                           </div>
+                        </div>
+                     </td>
+                     <td data-label="Số GD Thu:" class="align-center">
+                        <span class="txn-count-badge income-badge">{{
+                           item.soLuongGiaoDichThu
+                        }}</span>
+                     </td>
+                     <td data-label="Tổng Thu:" class="align-right font-bold text-success">
+                        +{{ item.tongThu | number: '1.0-0' }} ₫
+                     </td>
+                     <td data-label="Số GD Chi:" class="align-center">
+                        <span class="txn-count-badge expense-badge">{{
+                           item.soLuongGiaoDichChi
+                        }}</span>
+                     </td>
+                     <td data-label="Tổng Chi:" class="align-right font-bold text-error">
+                        -{{ item.tongChi | number: '1.0-0' }} ₫
+                     </td>
+                     <td
+                        data-label="Số dư ròng:"
+                        class="align-right font-bold"
+                        [class.text-success]="item.tongThu - item.tongChi >= 0"
+                        [class.text-error]="item.tongThu - item.tongChi < 0"
+                     >
+                        {{ item.tongThu - item.tongChi >= 0 ? '+' : ''
+                        }}{{ item.tongThu - item.tongChi | number: '1.0-0' }} ₫
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+      <!-- bảng to thu / chi -->
+      <div class="top-stats-grid" *ngIf="data.length > 0">
+         <div class="panel table-panel">
+            <div class="panel-header">
+               <h3 class="panel-title top-income-title">
+                  <ng-icon name="lucideTrendingUp"></ng-icon>
+                  Top Thu Nhập
+               </h3>
+            </div>
+            <div class="panel-body no-padding">
+               <div class="top-list">
+                  <div
+                     class="top-item"
+                     *ngFor="let item of topIncome | slice: 0 : 5; let i = index"
+                  >
+                     <span class="top-rank">{{ i + 1 }}</span>
+                     <div class="top-info">
+                        <strong>{{ item.tenTaiKhoan || item.tenTheLoai }}</strong>
+                        <div class="top-bar-track">
+                           <div
+                              class="top-bar income-bar"
+                              [style.width.%]="(item.tongThu / topIncome[0].tongThu) * 100"
+                           ></div>
+                        </div>
+                     </div>
+                     <span class="top-amount text-success"
+                        >+{{ item.tongThu | number: '1.0-0' }} ₫</span
+                     >
+                  </div>
+                  <div *ngIf="topIncome.length === 0" class="top-empty">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                     </svg>
+                     Chưa có dữ liệu thu nhập
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="panel table-panel">
+            <div class="panel-header">
+               <h3 class="panel-title top-expense-title">
+                  <ng-icon name="lucideTrendingDown"></ng-icon>
+                  Top Chi Tiêu
+               </h3>
+            </div>
+            <div class="panel-body no-padding">
+               <div class="top-list">
+                  <div
+                     class="top-item"
+                     *ngFor="let item of topExpense | slice: 0 : 5; let i = index"
+                  >
+                     <span class="top-rank">{{ i + 1 }}</span>
+                     <div class="top-info">
+                        <strong>{{ item.tenTaiKhoan || item.tenTheLoai }}</strong>
+                        <div class="top-bar-track">
+                           <div
+                              class="top-bar expense-bar"
+                              [style.width.%]="(item.tongChi / topExpense[0].tongChi) * 100"
+                           ></div>
+                        </div>
+                     </div>
+                     <span class="top-amount text-error"
+                        >-{{ item.tongChi | number: '1.0-0' }} ₫</span
+                     >
+                  </div>
+                  <div *ngIf="topExpense.length === 0" class="top-empty">
+                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                     </svg>
+                     Chưa có dữ liệu chi tiêu
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

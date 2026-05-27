@@ -1,0 +1,47 @@
+<div class="stat-section">
+   <h3 class="section-title">{{ title }}</h3>
+
+   <div class="stat-card">
+      <div *ngIf="data.length === 0" class="empty-state">Chưa có dữ liệu cho mục này.</div>
+
+      <div class="category-stat-item" *ngFor="let item of data">
+         <div class="cat-icon">{{ parseIcon(item.tenTheLoai) }}</div>
+
+         <div class="cat-details">
+            <div class="cat-header">
+               <span class="cat-name">{{ parseName(item.tenTheLoai) }}</span>
+               <span
+                  class="cat-amount"
+                  [ngClass]="type === 'income' ? 'text-success' : 'text-error'"
+               >
+                  {{ type === 'income' ? '+' : '-'
+                  }}{{ (type === 'income' ? item.tongThu : item.tongChi) | number: '1.0-0' }}đ
+               </span>
+            </div>
+
+            <div class="progress-track">
+               <div
+                  class="progress-fill"
+                  [ngClass]="type === 'income' ? 'income-fill' : 'expense-fill'"
+                  [style.width.%]="
+                     ((type === 'income' ? item.tongThu : item.tongChi) / totalAmount) * 100
+                  "
+               ></div>
+            </div>
+
+            <div class="cat-footer">
+               <span class="cat-count"
+                  >{{ type === 'income' ? item.soLuongGiaoDichThu : item.soLuongGiaoDichChi }} giao
+                  dịch</span
+               >
+               <span class="cat-percent">
+                  {{
+                     (type === 'income' ? item.tongThu : item.tongChi) / totalAmount
+                        | percent: '1.1-1'
+                  }}
+               </span>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
