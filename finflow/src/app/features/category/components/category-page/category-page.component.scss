@@ -1,0 +1,533 @@
+@use 'styles/variables' as var;
+
+.page-container {
+   padding: 1rem;
+}
+
+// top header cho mobile
+.page-top {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 50px;
+   max-height: 70px;
+   display: flex;
+   align-items: center;
+   padding: 0 2rem;
+   justify-content: space-between;
+   top: 0;
+   background: var(--bg-surface);
+   z-index: 10;
+
+   @media (min-width: 768px) {
+      display: none;
+   }
+}
+.back-btn {
+   width: 36px;
+   height: 36px;
+   border-radius: 50%;
+   border: none;
+   background: var.$gray-100;
+   color: var.$gray-700;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   svg,
+   ng-icon {
+      width: 18px;
+      height: 18px;
+   }
+}
+
+.page-title {
+   font-size: var.$font-size-h3;
+   font-weight: var.$font-weight-bold;
+   color: var.$gray-900;
+   @media (min-width: 768px) {
+      font-size: var.$font-size-h1;
+      display: block;
+   }
+}
+
+// top heder cho desktop
+.page-header-actions {
+   display: none;
+   @media (min-width: 768px) {
+      display: block;
+   }
+}
+
+// content
+.main-panel {
+   margin-top: 1rem;
+   @media (min-width: 768px) {
+      margin-top: 2rem;
+   }
+}
+
+.segment-control {
+   display: flex;
+   background: var(--bg-surface-hover);
+   border-radius: 12px;
+   padding: 4px;
+   margin-bottom: 1.5rem;
+
+   .segment-btn {
+      flex: 1;
+      padding: 0.6rem;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background-color: rgba(var(--primary-rgb), 0.05);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &.active {
+         background: var(--bg-surface);
+         color: var(--text-main);
+         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+   }
+}
+.section-wrapper {
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+// Danh sách thẻ
+.category-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+   gap: 1rem;
+
+   .cat-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.25rem 0.5rem;
+      cursor: pointer;
+      transition:
+         transform 0.2s,
+         box-shadow 0.2s;
+
+      &:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+         border-color: var.$primary-blue;
+      }
+
+      .cat-icon {
+         font-size: 2.25rem;
+         margin-bottom: 0.5rem;
+         line-height: 1;
+      }
+
+      .cat-name {
+         font-size: 0.8rem;
+         font-weight: 600;
+         text-align: center;
+         color: var(--text-main);
+         word-break: break-word;
+         display: -webkit-box;
+         -webkit-line-clamp: 2;
+         -webkit-box-orient: vertical;
+         overflow: hidden;
+      }
+   }
+
+   .add-card {
+      border: 2px dashed var(--border-color);
+      background: transparent;
+      box-shadow: none;
+
+      .cat-icon {
+         color: var(--text-muted);
+         font-size: 2rem;
+         font-weight: 300;
+      }
+      &:hover {
+         background: rgba(var(--primary-rgb), 0.05);
+         border-color: var.$primary-blue;
+         .cat-icon,
+         .cat-name {
+            color: var.$primary-blue;
+         }
+      }
+   }
+}
+
+/* Text colors*/
+.text-success {
+   color: var.$color-success;
+}
+.text-error {
+   color: var.$color-error;
+}
+.text-muted {
+   color: var(--text-muted);
+}
+.empty-state {
+   color: var(--text-muted);
+   text-align: center;
+   width: 100%;
+}
+
+.filter-bar {
+   display: flex;
+   gap: 0.5rem;
+   margin-bottom: 1.5rem;
+   overflow-x: auto;
+   padding-bottom: 4px;
+
+   &::-webkit-scrollbar {
+      display: none;
+   }
+
+   .filter-chip {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+         border-color: var.$primary-blue;
+         background-color: var(--bg-surface-hover);
+      }
+
+      &.active {
+         background-color: var(--text-main);
+         color: var(--bg-surface);
+         border-color: var(--text-main);
+      }
+
+      &.active.income {
+         background-color: var.$color-success;
+         border-color: var.$color-success;
+         color: var(--text-dark);
+      }
+      &.active.expense {
+         background-color: var.$color-error;
+         border-color: var.$color-error;
+         color: var(--text-dark);
+      }
+   }
+}
+
+.mb-4 {
+   margin-bottom: 2rem;
+}
+
+// category của user
+.user-card {
+   .edit-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: var(--bg-surface-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      opacity: 0.6;
+      transition: all 0.2s;
+   }
+
+   &:hover .edit-badge {
+      opacity: 1;
+      background-color: rgba(var(--primary-rgb), 0.1);
+      color: var.$primary-blue;
+   }
+}
+
+// category hệ thống
+.system-card {
+   background-color: var(--bg-root);
+   border-style: dashed;
+
+   &:hover {
+      transform: none !important;
+      box-shadow: none !important;
+      border-color: var(--border-color) !important;
+   }
+
+   .lock-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      color: var(--text-muted);
+      opacity: 0.3;
+
+      svg,
+      ng-icon {
+         width: 12px;
+         height: 12px;
+      }
+   }
+
+   .cat-name {
+      color: var(--text-muted);
+   }
+}
+
+/* modal */
+.modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.4);
+   backdrop-filter: blur(4px);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+   padding: 1rem;
+}
+
+.modal-content.modal-sm {
+   background: #ffffff;
+   border-radius: 20px; // Bo cong mềm mại
+   width: 100%;
+   max-width: 420px;
+   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+   overflow: hidden;
+   display: flex;
+   flex-direction: column;
+   animation: modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1.5rem 1.5rem 1rem;
+
+   .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+      color: #111827;
+   }
+
+   .close-btn {
+      background: #f3f4f6;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      cursor: pointer;
+      transition: all 0.2s;
+      &:hover {
+         background: #e5e7eb;
+         color: #111827;
+      }
+      svg,
+      ng-icon {
+         width: 18px;
+         height: 18px;
+      }
+   }
+}
+
+.modal-body {
+   padding: 0 1.5rem 1.5rem;
+   display: flex;
+   flex-direction: column;
+   gap: 1.25rem;
+}
+
+.form-group {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+
+   label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #374151;
+      .required {
+         color: #ef4444;
+      }
+      .optional {
+         color: #9ca3af;
+         font-weight: 400;
+         font-size: 0.8rem;
+      }
+   }
+}
+
+.modern-radio-tabs {
+   display: flex;
+   gap: 0.5rem;
+   background: #f3f4f6;
+   padding: 4px;
+   border-radius: 12px;
+
+   .radio-tab {
+      flex: 1;
+      input {
+         display: none;
+      }
+
+      .tab-btn {
+         display: block;
+         text-align: center;
+         padding: 0.6rem;
+         border-radius: 8px;
+         font-size: 0.9rem;
+         font-weight: 600;
+         color: #6b7280;
+         cursor: pointer;
+         transition: all 0.2s;
+      }
+
+      input:checked + .tab-btn {
+         background: #ffffff;
+         color: #111827;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      input[value='Thu']:checked + .tab-btn {
+         color: #10b981;
+      } // Màu xanh
+      input[value='Chi']:checked + .tab-btn {
+         color: #ef4444;
+      } // Màu đỏ
+   }
+}
+
+.modern-input {
+   width: 100%;
+   padding: 0.75rem 1rem;
+   background: #f9fafb;
+   border: 1px solid #e5e7eb;
+   border-radius: 12px;
+   font-size: 0.95rem;
+   color: #111827;
+   outline: none;
+   transition: all 0.2s;
+   font-family: inherit;
+   box-sizing: border-box;
+
+   &::placeholder {
+      color: #9ca3af;
+   }
+   &:focus {
+      background: #ffffff;
+      border-color: var.$primary-blue;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+   }
+}
+textarea.modern-input {
+   resize: none;
+}
+
+.hint-text {
+   font-size: 0.8rem;
+   color: #6b7280;
+   line-height: 1.4;
+   margin-top: 0.25rem;
+}
+
+.modal-footer {
+   display: flex;
+   align-items: center;
+   gap: 0.75rem;
+   padding: 1.25rem 1.5rem;
+   background: #f9fafb;
+   border-top: 1px solid #f3f4f6;
+
+   .spacer {
+      flex: 1;
+   }
+}
+
+.btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.4rem;
+   padding: 0.6rem 1.25rem;
+   border-radius: 10px;
+   font-weight: 600;
+   font-size: 0.95rem;
+   border: none;
+   cursor: pointer;
+   transition: all 0.2s;
+   font-family: inherit;
+
+   svg,
+   ng-icon {
+      width: 18px;
+      height: 18px;
+   }
+
+   &.btn-cancel {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      color: #374151;
+      &:hover {
+         background: #f3f4f6;
+      }
+   }
+
+   &.btn-save {
+      background: var.$primary-blue;
+      color: #ffffff;
+      &:hover:not(:disabled) {
+         background: #2563eb;
+         transform: translateY(-1px);
+         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      }
+      &:disabled {
+         background: #9ca3af;
+         cursor: not-allowed;
+         opacity: 0.7;
+      }
+   }
+
+   &.btn-danger {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      padding: 0.6rem 1rem;
+      &:hover {
+         background: #ef4444;
+         color: #ffffff;
+      }
+   }
+}
+
+@keyframes modalSlideIn {
+   from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+   }
+}

@@ -1,0 +1,141 @@
+<div class="page-container">
+   <!-- Header - mobile only -->
+   <div class="page-top">
+      <button class="back-btn" (click)="goBack()">
+         <ng-icon name="lucideChevronLeft"></ng-icon>
+      </button>
+      <h1 class="page-title">Thể loại giao dịch</h1>
+      <div style="width: 36px"></div>
+   </div>
+
+   <!-- Content -->
+   <div class="page-header-actions">
+      <h1 class="page-title">Thể loại giao dịch</h1>
+   </div>
+
+   <div class="main-panel">
+      <div class="filter-bar mb-4">
+         <button
+            class="filter-chip income"
+            [class.active]="activeTab === 'Thu'"
+            (click)="activeTab = 'Thu'"
+         >
+            Thu nhập
+         </button>
+         <button
+            class="filter-chip expense"
+            [class.active]="activeTab === 'Chi'"
+            (click)="activeTab = 'Chi'"
+         >
+            Chi tiêu
+         </button>
+      </div>
+
+      <div class="section-wrapper mb-4">
+         <h3 class="section-title">Danh mục của tôi</h3>
+         <div class="category-grid">
+            <div class="cat-card add-card" (click)="openCreate()">
+               <div class="cat-icon">+</div>
+               <div class="cat-name">Thêm mới</div>
+            </div>
+
+            <div
+               class="cat-card user-card"
+               *ngFor="let item of myCategories"
+               (click)="openUpdate(item)"
+            >
+               <div class="edit-badge">
+                  <ng-icon name="lucideSquarePen"></ng-icon>
+               </div>
+
+               <div class="cat-icon">{{ parseCategory(item.tenTheLoai).icon }}</div>
+               <div class="cat-name">{{ parseCategory(item.tenTheLoai).text }}</div>
+            </div>
+         </div>
+      </div>
+
+      <div class="section-wrapper" *ngIf="systemCategories.length > 0">
+         <h3 class="section-title">Mặc định hệ thống</h3>
+         <div class="category-grid">
+            <div class="cat-card system-card" *ngFor="let item of systemCategories">
+               <div class="cat-icon">{{ parseCategory(item.tenTheLoai).icon }}</div>
+               <div class="cat-name">{{ parseCategory(item.tenTheLoai).text }}</div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <!-- modal -->
+   <div class="modal-overlay" *ngIf="isModalOpen">
+      <div class="modal-content modal-sm">
+         <div class="modal-header">
+            <h3 class="modal-title">{{ isEditMode ? 'Sửa Danh Mục' : 'Thêm Mới' }}</h3>
+            <button class="close-btn" (click)="closeModal()">
+               <ng-icon name="lucideX"></ng-icon>
+            </button>
+         </div>
+
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Nhóm phân loại <span class="required">*</span></label>
+               <div class="modern-radio-tabs">
+                  <label class="radio-tab">
+                     <input type="radio" [(ngModel)]="formData.phanLoai" value="Thu" />
+                     <span class="tab-btn">Thu nhập</span>
+                  </label>
+                  <label class="radio-tab">
+                     <input type="radio" [(ngModel)]="formData.phanLoai" value="Chi" />
+                     <span class="tab-btn">Chi tiêu</span>
+                  </label>
+               </div>
+            </div>
+
+            <div class="form-group">
+               <label>Tên danh mục <span class="required">*</span></label>
+               <input
+                  type="text"
+                  [(ngModel)]="formData.tenTheLoai"
+                  class="modern-input"
+                  placeholder="VD: 🍣 Ăn uống, 🛒 Mua sắm..."
+               />
+               <small class="hint-text">
+                  Lưu ý: Bạn nên thêm 1 Emoji vào đầu tên để tạo icon bắt mắt!
+               </small>
+            </div>
+
+            <div class="form-group">
+               <label>Mô tả <span class="optional">(Không bắt buộc)</span></label>
+               <textarea
+                  [(ngModel)]="formData.moTa"
+                  class="modern-input"
+                  rows="2"
+                  placeholder="Nhập ghi chú ngắn..."
+               ></textarea>
+            </div>
+         </div>
+
+         <div class="modal-footer">
+            <button
+               *ngIf="isEditMode && selectedItem"
+               type="button"
+               class="btn btn-danger"
+               (click)="handleDelete(selectedItem.id)"
+            >
+               <ng-icon name="lucideTrash"></ng-icon>
+               Xóa
+            </button>
+
+            <div class="spacer"></div>
+            <button type="button" class="btn btn-cancel" (click)="closeModal()">Hủy</button>
+            <button
+               type="button"
+               class="btn btn-save"
+               [disabled]="!formData.tenTheLoai"
+               (click)="submitForm()"
+            >
+               Lưu
+            </button>
+         </div>
+      </div>
+   </div>
+</div>
