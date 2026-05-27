@@ -1,0 +1,93 @@
+@use 'styles/variables' as var;
+
+.home-header {
+   position: sticky;
+   top: 0;
+   z-index: 100;
+   background: rgba(var(--bg-surface-rgb), 0.85);
+   backdrop-filter: blur(12px);
+   -webkit-backdrop-filter: blur(12px);
+   border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+
+   & .header-container {
+      display: flex;
+      flex-direction: row;
+      padding: 0.75rem 1rem;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+
+      & .logo {
+         font-size: 1.5rem;
+         font-weight: bold;
+         color: var.$primary-blue;
+         margin-left: 1rem;
+
+         & .logo-img {
+            width: 36px;
+            height: 36px;
+            margin-right: 0.5rem;
+         }
+      }
+
+      & nav {
+         display: flex;
+         gap: 1.5rem;
+         align-items: center;
+      }
+
+      & .btn-link {
+         box-sizing: border-box;
+         text-decoration: none;
+         color: var(--text-main);
+         font-size: 0.9rem;
+         padding: 0.5rem;
+         border: 1px solid transparent;
+         border-radius: 4px;
+         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+         transition: all 0.3s ease;
+
+         &:hover {
+            background-color: var.$primary-blue;
+            border-color: var.$primary-blue;
+            scale: 1.05;
+            transform: scale(1.02);
+         }
+      }
+
+      & .btn-primary {
+         box-sizing: border-box;
+         background: var.$primary-blue;
+         max-width: fit-content;
+         color: white;
+         padding: 0.5rem 1rem;
+         border-radius: 4px;
+         text-decoration: none;
+         transition: all 0.3s ease;
+         font-size: 0.9rem;
+         &:hover {
+            color: white;
+            border-color: #2563eb;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+         }
+      }
+   }
+}
+
+@media (min-width: 768px) {
+   .header-container {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+   }
+}
+
+/* Desktop (>= 1200px) */
+@media (min-width: 1200px) {
+   .home-header .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+   }
+}

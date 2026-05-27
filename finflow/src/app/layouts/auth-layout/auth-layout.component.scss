@@ -1,0 +1,41 @@
+@use 'styles/variables' as var;
+
+.auth-layout-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var.$gray-50;
+    position: relative;
+    overflow: hidden;
+    padding: 1rem; 
+}
+
+.auth-content {
+    width: 100%;
+    max-width: 440px; 
+    z-index: 10;
+}
+
+.bg-glow {
+    position: absolute;
+    width: 50vw;
+    max-width: 500px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 1;
+    opacity: 0.15; 
+}
+
+.top-left {
+    top: -10%;
+    left: -10%;
+    background: var.$primary-blue;
+}
+
+.bottom-right {
+    bottom: -10%;
+    right: -10%;
+    background: var.$vivid-pink; 
+}

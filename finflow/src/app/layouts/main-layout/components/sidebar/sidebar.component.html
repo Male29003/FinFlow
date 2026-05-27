@@ -1,0 +1,61 @@
+<aside class="sidebar" [class.collapsed]="!isExpanded" [class.no-transition]="!isLoaded">
+   <div class="sidebar-header">
+      <div class="logo-wrapper" (click)="goToHome()">
+         <img class="logo" src="assets/brand/logo.png" alt="brand-logo" />
+         <span class="logo-text">FinFlow</span>
+      </div>
+   </div>
+
+   <nav class="menu">
+      <a routerLink="/dashboard" routerLinkActive="active" class="menu-item">
+         <div class="menu-icon">
+            <ng-icon name="lucideLayoutDashboard"></ng-icon>
+         </div>
+         <span class="menu-text">Tổng quan</span>
+      </a>
+
+      <a routerLink="/transactions" routerLinkActive="active" class="menu-item">
+         <div class="menu-icon">
+            <ng-icon name="lucideDollarSign"></ng-icon>
+         </div>
+         <span class="menu-text">Giao dịch</span>
+      </a>
+
+      <a routerLink="/statistics" routerLinkActive="active" class="menu-item">
+         <div class="menu-icon">
+            <ng-icon name="lucideChartColumnBig"></ng-icon>
+         </div>
+         <span class="menu-text">Thống kê</span>
+      </a>
+
+      <a routerLink="/accounts" routerLinkActive="active" class="menu-item">
+         <div class="menu-icon">
+            <ng-icon name="lucideCreditCard"></ng-icon>
+         </div>
+         <span class="menu-text">Tài khoản</span>
+      </a>
+
+      <div class="menu-group">
+         <div
+            class="menu-item toggle-menu"
+            (click)="toggleCatalogMenu($event)"
+            [class.active]="isCatalogOpen"
+         >
+            <div class="menu-icon">
+               <ng-icon name="lucideLayers"></ng-icon>
+            </div>
+            <span class="menu-text">Danh mục</span>
+            <ng-icon name="lucideChevronDown"></ng-icon>
+         </div>
+
+         <div class="sub-menu" [class.open]="isCatalogOpen">
+            <a routerLink="/account-types" routerLinkActive="active" class="sub-menu-item">
+               Loại tài khoản
+            </a>
+            <a routerLink="/category" routerLinkActive="active" class="sub-menu-item">
+               Thể loại thu chi
+            </a>
+         </div>
+      </div>
+   </nav>
+</aside>
