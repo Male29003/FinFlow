@@ -1,7 +1,11 @@
 @use 'styles/variables' as var;
 
 .page-container {
-   padding: 1rem;
+   padding: 0;
+
+   @media (min-width: 768px) {
+      padding: 1rem;
+   }
 }
 
 .page-header-actions {
