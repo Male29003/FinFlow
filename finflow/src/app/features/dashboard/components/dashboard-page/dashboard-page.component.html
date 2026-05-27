@@ -1,0 +1,110 @@
+<div class="page-container" *ngIf="!isLoading">
+   <div class="page-header">
+      <h1 class="page-title">Dashboard</h1>
+      <div class="month-filter">
+         <input type="month" id="monthPicker" [(ngModel)]="selectedMonth" (change)="loadData()" />
+      </div>
+   </div>
+
+   <div class="overview-cards">
+      <div class="stat-card balance-card">
+         <div class="card-icon">
+            <ng-icon name="lucideWallet"></ng-icon>
+         </div>
+         <div class="card-info">
+            <span class="card-label">Số dư tổng</span>
+            <h3 class="card-value">{{ totalBalance | number }} ₫</h3>
+         </div>
+      </div>
+
+      <div class="stat-card income-card">
+         <div class="card-icon">
+            <ng-icon name="lucideTrendingUp"></ng-icon>
+         </div>
+         <div class="card-info">
+            <span class="card-label">Tổng Thu</span>
+            <h3 class="card-value text-success">+ {{ totalIncome | number }} ₫</h3>
+         </div>
+      </div>
+
+      <div class="stat-card expense-card">
+         <div class="card-icon">
+            <ng-icon name="lucideTrendingDown"></ng-icon>
+         </div>
+         <div class="card-info">
+            <span class="card-label">Tổng Chi</span>
+            <h3 class="card-value text-error">- {{ totalExpense | number }} ₫</h3>
+         </div>
+      </div>
+   </div>
+
+   <div class="dashboard-content">
+      <div class="main-panel">
+         <div class="panel-header">
+            <h3 class="panel-title">Tài khoản của bạn</h3>
+         </div>
+         <div class="panel-body no-padding">
+            <table class="data-table">
+               <!-- <thead>
+                  <tr>
+                     <th>Tên tài khoản</th>
+                     <th class="align-right">Số dư</th>
+                  </tr>
+               </thead> -->
+               <tbody>
+                  <tr *ngFor="let acc of accountsData">
+                     <td>
+                        <div class="acc-name-wrapper">
+                           <strong>{{ acc.tenTaiKhoan }}</strong>
+                        </div>
+                     </td>
+                     <td class="align-right font-bold">{{ acc.soDu | number }} ₫</td>
+                  </tr>
+                  <tr *ngIf="accountsData.length === 0">
+                     <td colspan="2" class="text-center text-muted py-4">Chưa có tài khoản nào</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+
+      <div class="main-panel">
+         <div class="panel-header">
+            <h3 class="panel-title">Giao dịch gần đây</h3>
+         </div>
+         <div class="panel-body">
+            <div class="transaction-list">
+               <div class="transaction-item" *ngFor="let tx of recentTransactions">
+                  <div
+                     class="item-icon"
+                     [ngClass]="tx.theLoai.phanLoai === 'Thu' ? 'bg-success' : 'bg-error'"
+                  >
+                     <div *ngIf="tx.theLoai.phanLoai === 'Chi'">
+                        <ng-icon name="lucideMoveDown"></ng-icon>
+                     </div>
+                     <div *ngIf="tx.theLoai.phanLoai === 'Thu'">
+                        <ng-icon name="lucideMoveUp"></ng-icon>
+                     </div>
+                  </div>
+
+                  <div class="item-details">
+                     <h4 class="item-title">{{ tx.tenGiaoDich }}</h4>
+                     <span class="item-category">{{ tx.ngayGiaoDich | date: 'dd/MM/yyyy' }}</span>
+                  </div>
+
+                  <div
+                     class="item-amount"
+                     [ngClass]="tx.theLoai.phanLoai === 'Thu' ? 'text-success' : 'text-error'"
+                  >
+                     {{ tx.theLoai.phanLoai === 'Thu' ? '+' : '-' }} {{ tx.tongTien | number }} ₫
+                  </div>
+               </div>
+
+               <div *ngIf="recentTransactions.length === 0" class="text-center text-muted py-4">
+                  Chưa có giao dịch nào
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
