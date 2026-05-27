@@ -1,0 +1,318 @@
+<main class="home-container">
+   <div class="bg-glow glow-1"></div>
+   <div class="bg-glow glow-2"></div>
+   <div class="bg-glow glow-3"></div>
+
+   <!-- hero section -->
+   <section class="hero">
+      <div class="hero-content">
+         <h1 class="gradient-text">Quản lý tài chính dễ dàng</h1>
+
+         <p class="hero-desc">
+            Theo dõi thu chi, liên kết tài khoản ngân hàng ảo và nắm bắt thói quen tiêu dùng qua
+            biểu đồ trực quan. Xây dựng với <strong>Angular 17</strong> và <strong>.NET 8</strong>.
+         </p>
+
+         <div class="hero-actions">
+            <a routerLink="/register" class="btn-hero-primary">
+               Trải nghiệm ngay
+               <ng-icon name="lucideArrowRight"></ng-icon>
+            </a>
+            <a routerLink="/login" class="btn-hero-ghost">Đăng nhập</a>
+         </div>
+      </div>
+
+      <!-- App Mockup -->
+      <div class="hero-visual">
+         <div class="mockup-frame">
+            <div class="mockup-bar">
+               <div class="mockup-dots"><span></span><span></span><span></span></div>
+               <div class="mockup-url">finflow.app/dashboard</div>
+               <div style="width: 48px"></div>
+            </div>
+            <div class="mockup-body">
+               <!-- Stat Cards -->
+               <div class="mk-stats">
+                  <div class="mk-stat-card">
+                     <span class="mk-label">Số dư</span>
+                     <span class="mk-value blue">12.5M ₫</span>
+                  </div>
+                  <div class="mk-stat-card">
+                     <span class="mk-label">Thu tháng</span>
+                     <span class="mk-value green">+8.5M</span>
+                  </div>
+                  <div class="mk-stat-card">
+                     <span class="mk-label">Chi tháng</span>
+                     <span class="mk-value red">-3.2M</span>
+                  </div>
+               </div>
+               <!-- Chart bars -->
+               <div class="mk-chart">
+                  <div class="mk-chart-header"><span>Thu chi 6 tháng</span></div>
+                  <div class="mk-bars">
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 55%"></div>
+                        <div class="mk-bar red" style="height: 35%"></div>
+                        <span class="mk-bar-lbl">T1</span>
+                     </div>
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 70%"></div>
+                        <div class="mk-bar red" style="height: 45%"></div>
+                        <span class="mk-bar-lbl">T2</span>
+                     </div>
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 50%"></div>
+                        <div class="mk-bar red" style="height: 60%"></div>
+                        <span class="mk-bar-lbl">T3</span>
+                     </div>
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 80%"></div>
+                        <div class="mk-bar red" style="height: 30%"></div>
+                        <span class="mk-bar-lbl">T4</span>
+                     </div>
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 65%"></div>
+                        <div class="mk-bar red" style="height: 50%"></div>
+                        <span class="mk-bar-lbl">T5</span>
+                     </div>
+                     <div class="mk-bar-group">
+                        <div class="mk-bar green" style="height: 90%"></div>
+                        <div class="mk-bar red" style="height: 40%"></div>
+                        <span class="mk-bar-lbl">T6</span>
+                     </div>
+                  </div>
+               </div>
+               <!-- Recent transactions -->
+               <div class="mk-txns">
+                  <div class="mk-txn">
+                     <div class="mk-txn-dot green"></div>
+                     <span>Lương tháng 6</span><span class="green">+8.5M</span>
+                  </div>
+                  <div class="mk-txn">
+                     <div class="mk-txn-dot red"></div>
+                     <span>Grab Food</span><span class="red">-85K</span>
+                  </div>
+                  <div class="mk-txn">
+                     <div class="mk-txn-dot red"></div>
+                     <span>Shopee</span><span class="red">-230K</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- phân cách section -->
+   <div class="metrics-strip feature-card reveal">
+      <div class="metric-item">
+         <span class="metric-num">9+</span>
+         <span class="metric-label">Tính năng chính</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+         <span class="metric-num">2</span>
+         <span class="metric-label">Giao diện tối / sáng</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+         <span class="metric-num">100%</span>
+         <span class="metric-label">Miễn phí</span>
+      </div>
+   </div>
+
+   <!-- Feature section -->
+   <section class="features-section">
+      <div class="section-header feature-card reveal">
+         <h2>Mọi thứ bạn cần để làm chủ đồng tiền</h2>
+         <p>
+            Không còn đau đầu vì những khoản chi không tên. Quản lý tài chính chưa bao giờ dễ đến
+            thế.
+         </p>
+      </div>
+
+      <div class="features-grid">
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-blue">
+               <ng-icon name="lucideLayoutDashboard"></ng-icon>
+            </div>
+            <h3>Dashboard tổng quan</h3>
+            <p>
+               Toàn bộ tình hình tài chính trên một màn hình. Số dư, thu chi tháng, biểu đồ xu hướng
+               và giao dịch gần nhất.
+            </p>
+         </div>
+
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-violet">
+               <ng-icon name="lucideLayers"></ng-icon>
+            </div>
+            <h3>Quản lý giao dịch</h3>
+            <p>
+               Thêm, sửa, xóa giao dịch thu chi. Lọc theo danh mục, tài khoản, khoảng thời gian với
+               phân trang thông minh.
+            </p>
+         </div>
+
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-teal">
+               <ng-icon name="lucideCreditCard"></ng-icon>
+            </div>
+            <h3>Liên kết ngân hàng ảo</h3>
+            <p>
+               Demo tính năng Open Banking. Tự động tạo 10 triệu đồng và 10 giao dịch mẫu để trải
+               nghiệm ngay lập tức.
+            </p>
+         </div>
+
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-orange">
+               <ng-icon name="lucideChartColumnBig"></ng-icon>
+            </div>
+            <h3>Thống kê & Báo cáo</h3>
+            <p>
+               Biểu đồ cột đối soát thu-chi theo tài khoản. Phân tích chi tiết từng danh mục theo tỷ
+               lệ phần trăm.
+            </p>
+         </div>
+
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-pink">
+               <ng-icon name="lucideLock"></ng-icon>
+            </div>
+            <h3>Xác thực & Bảo mật</h3>
+            <p>
+               Đăng ký, đăng nhập với JWT access + refresh token. OTP qua Email để quên mật khẩu.
+            </p>
+         </div>
+
+         <div class="feat-card feature-card reveal">
+            <div class="feat-icon icon-green">
+               <ng-icon name="lucideRadio"></ng-icon>
+            </div>
+            <h3>Responsive</h3>
+            <p>
+               Tối ưu Mobile, Tablet và Desktop với layout riêng biệt. Chế độ Dark / Light theme
+               chuyển đổi mượt mà.
+            </p>
+         </div>
+      </div>
+   </section>
+
+   <!-- showcase section -->
+   <section class="product-showcase">
+      <div class="showcase-row feature-card reveal">
+         <div class="showcase-text">
+            <span class="showcase-badge violet">Thống kê</span>
+            <h3>Báo cáo thu chi trực quan</h3>
+            <p>
+               Dữ liệu tài chính được trình bày qua biểu đồ sinh động. Dễ dàng nắm bắt tỷ trọng các
+               khoản chi, nhận diện thói quen tiêu dùng và điều chỉnh kịp thời.
+            </p>
+            <ul class="feature-list">
+               <li><span class="check-icon">✓</span> Biểu đồ đối soát thu-chi theo tài khoản</li>
+               <li><span class="check-icon">✓</span> Phân tích theo từng danh mục cụ thể</li>
+               <li><span class="check-icon">✓</span> Lọc linh hoạt theo khoảng thời gian</li>
+            </ul>
+         </div>
+         <div class="showcase-image">
+            <div class="img-wrapper stat-mockup">
+               <picture>
+                  <source media="(min-width: 768px)" srcset="assets/images/chart-desktop.png" />
+                  <img
+                     class="app-mockup"
+                     src="assets/images/demo.png"
+                     alt="Thống kê FinFlow"
+                     onerror="
+                        this.style.display = 'none';
+                        this.nextElementSibling.style.display = 'flex';
+                     "
+                  />
+               </picture>
+            </div>
+         </div>
+      </div>
+
+      <div class="showcase-row reverse feature-card reveal">
+         <div class="showcase-text">
+            <span class="showcase-badge teal">Giao dịch</span>
+            <h3>Quản lý giao dịch toàn diện</h3>
+            <p>
+               Mọi khoản thu chi đều được ghi lại và phân loại. Tìm kiếm, lọc, sắp xếp tức thì với
+               bộ lọc đa chiều theo danh mục, tài khoản và thời gian.
+            </p>
+            <ul class="feature-list">
+               <li><span class="check-icon">✓</span> Thêm giao dịch giữa 2 tài khoản</li>
+               <li><span class="check-icon">✓</span> Phân loại tự động theo danh mục</li>
+               <li><span class="check-icon">✓</span> Lịch sử đầy đủ, phân trang thông minh</li>
+            </ul>
+         </div>
+         <div class="showcase-image">
+            <div class="img-wrapper txn-mockup">
+               <img
+                  class="app-mockup"
+                  src="assets/images/demo.png"
+                  alt="Giao dịch FinFlow"
+                  onerror="
+                     this.style.display = 'none';
+                     this.nextElementSibling.style.display = 'flex';
+                  "
+               />
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <!-- Tech stack-->
+   <section class="tech-section feature-card reveal">
+      <div class="tech-header">
+         <span class="section-badge">Công nghệ</span>
+         <h2>Được xây dựng bằng công nghệ hiện đại</h2>
+      </div>
+      <div class="tech-grid">
+         <div class="tech-item">
+            <div class="tech-logo angular-logo">
+               <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.5L2 6.5l1.5 13 8.5 4 8.5-4L22 6.5z" opacity=".3" />
+                  <path d="M12 2.5v20l8.5-4L22 6.5z" opacity=".15" />
+                  <path d="M12 2.5L2 6.5l1.5 13 8.5 4V2.5z" />
+                  <path d="M12 2.5l10 4-1.5 13L12 23.5V2.5z" opacity=".5" />
+                  <path d="M8.5 15.5l1.5-4h4l1.5 4M10 11.5L12 7l2 4.5" opacity=".8" />
+               </svg>
+            </div>
+            <span class="tech-name">Angular 17</span>
+            <span class="tech-sub">Standalone · Signals</span>
+         </div>
+         <div class="tech-item">
+            <div class="tech-logo dotnet-logo">
+               <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                     d="M24 8.77h-2.468v7.565h-1.425V8.77h-2.462V7.53H24zm-6.852 7.565h-4.821V7.53h4.63v1.24h-3.205v2.494h2.953v1.234h-2.953v2.604h3.396zm-6.708 0H8.882L5.302 9.862a2 2 0 0 1-.22-.511h-.028c.028.388.042.842.042 1.364v5.62H3.752V7.529h1.681l3.468 6.396a3 3 0 0 1 .253.56h.019c-.033-.462-.05-.928-.05-1.398V7.53h1.316zM.Presidential 12.566A1.4 1.4 0 0 1 0 11.518a1.47 1.47 0 0 1 .422-1.048 1.36 1.36 0 0 1 1.017-.43c.401 0 .743.144 1.03.43.284.285.426.632.426 1.048a1.4 1.4 0 0 1-.426 1.048 1.43 1.43 0 0 1-1.03.407A1.39 1.39 0 0 1 0 12.566z"
+                  />
+               </svg>
+            </div>
+            <span class="tech-name">.NET 8</span>
+            <span class="tech-sub">CQRS · EF Core</span>
+         </div>
+         <div class="tech-item">
+            <div class="tech-logo db-logo">
+               <ng-icon name="lucideDatabase"></ng-icon>
+            </div>
+            <span class="tech-name">PostgreSQL</span>
+            <span class="tech-sub">Entity Framework</span>
+         </div>
+      </div>
+   </section>
+
+   <!-- CTA footer  -->
+   <section class="cta-section feature-card reveal">
+      <div class="cta-glow"></div>
+      <h2>Sẵn sàng làm chủ tài chính?</h2>
+      <p>
+         Tạo tài khoản miễn phí, liên kết ngân hàng ảo và theo dõi dòng tiền của bạn ngay hôm nay.
+      </p>
+      <a routerLink="/register" class="btn-hero-primary cta-btn">
+         Tạo tài khoản miễn phí
+         <ng-icon name="lucideArrowRight"></ng-icon>
+      </a>
+   </section>
+</main>
