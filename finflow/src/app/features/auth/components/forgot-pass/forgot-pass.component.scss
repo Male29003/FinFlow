@@ -1,0 +1,222 @@
+@use 'styles/variables' as var;
+
+.step-indicator {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0;
+   margin-bottom: 2rem;
+}
+
+.step {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.step-dot {
+   width: 32px;
+   height: 32px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 0.8rem;
+   font-weight: var.$font-weight-bold;
+   background: var.$gray-100;
+   color: var(--text-main);
+   border: 2px solid var.$gray-400;
+   transition: all 0.3s;
+}
+
+.step.active .step-dot {
+   background: rgba(var(--primary-rgb), 0.1);
+   color: var.$primary-blue;
+   border-color: var.$primary-blue;
+}
+
+.step.done .step-dot {
+   background: var.$primary-blue;
+   color: black;
+   border-color: var.$primary-blue;
+}
+
+.step-line {
+   width: 48px;
+   height: 2px;
+   background: var.$gray-400;
+   transition: background 0.3s;
+
+   &.done {
+      background: var.$primary-blue;
+   }
+}
+
+// stop icon
+.step-icon {
+   width: 56px;
+   height: 56px;
+   border-radius: 50%;
+   background: rgba(var(--primary-rgb), 0.1);
+   color: var.$primary-blue;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 1.25rem;
+
+   svg,
+   ng-icon {
+      width: 26px;
+      height: 26px;
+   }
+
+   &.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+   }
+}
+
+.info-note {
+   display: flex;
+   align-items: flex-start;
+   gap: 0.5rem;
+   padding: 0.875rem 1rem;
+   background: rgba(var(--primary-rgb), 0.05);
+   border: 1px solid rgba(var(--primary-rgb), 0.15);
+   border-radius: 10px;
+   font-size: 0.85rem;
+   color: var.$gray-700;
+   line-height: 1.5;
+
+   svg,
+   ng-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var.$primary-blue;
+   }
+}
+
+// khung OTP
+.otp-container {
+   display: flex;
+   gap: 0.5rem;
+   justify-content: center;
+   margin: 0.5rem 0;
+}
+
+.otp-box {
+   width: 44px;
+   height: 52px;
+   border: 1.5px solid var.$gray-400;
+   border-radius: 10px;
+   background: var.$gray-50;
+   font-size: 1.25rem;
+   font-weight: var.$font-weight-bold;
+   text-align: center;
+   outline: none;
+   transition: all 0.2s;
+   caret-color: var.$primary-blue;
+   color: var.$gray-900;
+
+   &:focus {
+      border-color: var.$primary-blue;
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.12);
+   }
+}
+
+// Nút resend
+.resend-row {
+   text-align: center;
+   font-size: 0.875rem;
+}
+
+.resend-timer {
+   color: var.$gray-400;
+}
+
+.resend-btn {
+   background: none;
+   border: none;
+   color: var.$primary-blue;
+   font-size: 0.875rem;
+   font-weight: var.$font-weight-medium;
+   cursor: pointer;
+   padding: 0;
+   text-decoration: underline;
+}
+
+// password inp
+.input-eye {
+   position: relative;
+
+   input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.875rem 3rem 0.875rem 1rem;
+      border: 1px solid var.$gray-400;
+      border-radius: 12px;
+      font-size: var.$font-size-body;
+      outline: none;
+      background: var.$gray-50;
+      color: var.$gray-900;
+      transition: all 0.2s;
+
+      &:focus {
+         border-color: var.$primary-blue;
+         box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15);
+      }
+   }
+}
+
+.eye-btn {
+   position: absolute;
+   right: 0.75rem;
+   top: 50%;
+   transform: translateY(-50%);
+   background: none;
+   border: none;
+   cursor: pointer;
+   color: var(--text-main);
+   display: flex;
+   align-items: center;
+
+   svg,
+   ng-icon {
+      width: 18px;
+      height: 18px;
+   }
+}
+
+// Thông báo thành công
+.success-state {
+   text-align: center;
+   padding: 1rem 0;
+
+   h2 {
+      margin-bottom: 0.75rem;
+   }
+   p {
+      margin-bottom: 0;
+   }
+}
+
+.success-icon {
+   width: 72px;
+   height: 72px;
+   border-radius: 50%;
+   background: rgba(16, 185, 129, 0.1);
+   color: #059669;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 1.5rem;
+
+   svg,
+   ng-icon {
+      width: 36px;
+      height: 36px;
+      stroke-width: 2.5;
+   }
+}

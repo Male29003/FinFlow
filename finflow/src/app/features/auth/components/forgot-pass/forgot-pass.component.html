@@ -1,0 +1,183 @@
+<div class="auth-card">
+   <!-- các bước thực hiện  -->
+   <div class="step-indicator">
+      <div class="step" [class.active]="step >= 1" [class.done]="step > 1">
+         <span class="step-dot">{{ step > 1 ? '✓' : '1' }}</span>
+      </div>
+      <div class="step-line" [class.done]="step > 1"></div>
+      <div class="step" [class.active]="step >= 2" [class.done]="step > 2">
+         <span class="step-dot">{{ step > 2 ? '✓' : '2' }}</span>
+      </div>
+      <div class="step-line" [class.done]="step > 2"></div>
+      <div class="step" [class.active]="step >= 3">
+         <span class="step-dot">3</span>
+      </div>
+   </div>
+
+   <!-- nhập email -->
+   <div *ngIf="step === 1" class="step-content">
+      <div class="auth-header">
+         <div class="step-icon">
+            <ng-icon name="lucideLock"></ng-icon>
+         </div>
+         <h2>Quên mật khẩu?</h2>
+         <p>Nhập email của bạn, chúng tôi sẽ gửi mã xác thực OTP</p>
+      </div>
+
+      <form [formGroup]="emailForm" (ngSubmit)="onSendOtp()" class="auth-form">
+         <div class="form-group">
+            <label for="email">Địa chỉ Email</label>
+            <input
+               id="email"
+               type="email"
+               formControlName="email"
+               placeholder="Nhập email đã đăng ký..."
+            />
+            <span
+               class="error-text"
+               *ngIf="emailForm.get('email')?.touched && emailForm.get('email')?.invalid"
+            >
+               Vui lòng nhập email hợp lệ
+            </span>
+         </div>
+
+         <div class="error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+         <button type="submit" class="btn-primary" [disabled]="emailForm.invalid || isLoading">
+            {{ isLoading ? 'Đang gửi...' : 'Gửi mã OTP' }}
+         </button>
+         <div class="auth-links">
+            <a routerLink="/login">← Quay lại đăng nhập</a>
+         </div>
+      </form>
+   </div>
+
+   <!-- nhập otp-->
+   <div *ngIf="step === 2" class="step-content">
+      <div class="auth-header">
+         <div class="step-icon success">
+            <ng-icon name="lucideLock"></ng-icon>
+         </div>
+         <h2>Nhập mã OTP</h2>
+         <p>
+            Mã đã gửi đến <strong>{{ emailForm.get('email')?.value }}</strong>
+         </p>
+      </div>
+
+      <form [formGroup]="otpForm" (ngSubmit)="onVerifyOtp()" class="auth-form">
+         <!-- OTP boxes -->
+         <div class="otp-container">
+            <input
+               *ngFor="let i of [0, 1, 2, 3, 4, 5]"
+               type="text"
+               inputmode="numeric"
+               maxlength="1"
+               class="otp-box"
+               [id]="'otp-' + i"
+               (keyup)="onOtpInput($event, i)"
+               (keydown)="onOtpKeydown($event, i)"
+               (paste)="onOtpPaste($event)"
+            />
+         </div>
+
+         <div class="resend-row">
+            <span class="resend-timer" *ngIf="resendCountdown > 0">
+               Gửi lại sau {{ resendCountdown }}s
+            </span>
+            <button
+               type="button"
+               class="resend-btn"
+               *ngIf="resendCountdown === 0"
+               (click)="onResendOtp()"
+            >
+               Gửi lại mã
+            </button>
+         </div>
+
+         <div class="error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+         <button type="submit" class="btn-primary" [disabled]="!isOtpComplete || isLoading">
+            {{ isLoading ? 'Đang xác thực...' : 'Xác nhận mã' }}
+         </button>
+      </form>
+   </div>
+
+   <!-- đặt mk mới -->
+   <div *ngIf="step === 3" class="step-content">
+      <div class="auth-header">
+         <div class="step-icon">
+            <ng-icon name="lucideLock"></ng-icon>
+         </div>
+         <h2>Tạo mật khẩu mới</h2>
+         <p>Mật khẩu mới phải có ít nhất 6 ký tự</p>
+      </div>
+
+      <form [formGroup]="resetForm" (ngSubmit)="onResetPassword()" class="auth-form">
+         <div class="form-group">
+            <label>Mật khẩu mới</label>
+            <div class="input-eye">
+               <input
+                  [type]="showPwd ? 'text' : 'password'"
+                  formControlName="password"
+                  placeholder="Tối thiểu 6 ký tự"
+               />
+               <button type="button" class="eye-btn" (click)="showPwd = !showPwd">
+                  <div *ngIf="!showPwd">
+                     <ng-icon name="lucideEye"></ng-icon>
+                  </div>
+                  <div *ngIf="showPwd">
+                     <ng-icon name="lucideEyeOff"></ng-icon>
+                  </div>
+               </button>
+            </div>
+         </div>
+
+         <div class="form-group">
+            <label>Xác nhận mật khẩu</label>
+            <div class="input-eye">
+               <input
+                  [type]="showConfirm ? 'text' : 'password'"
+                  formControlName="confirmPassword"
+                  placeholder="Nhập lại mật khẩu"
+               />
+               <button type="button" class="eye-btn" (click)="showConfirm = !showConfirm">
+                  <div *ngIf="!showConfirm">
+                     <ng-icon name="lucideEye"></ng-icon>
+                  </div>
+                  <div *ngIf="showConfirm">
+                     <ng-icon name="lucideEyeOff"></ng-icon>
+                  </div>
+               </button>
+            </div>
+            <span
+               class="error-text"
+               *ngIf="resetForm.errors?.['mismatch'] && resetForm.get('confirmPassword')?.touched"
+            >
+               Mật khẩu không khớp
+            </span>
+         </div>
+
+         <div class="error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+         <button type="submit" class="btn-primary" [disabled]="resetForm.invalid || isLoading">
+            {{ isLoading ? 'Đang cập nhật...' : 'Đặt lại mật khẩu' }}
+         </button>
+      </form>
+   </div>
+
+   <!-- thông báo thành công -->
+   <div *ngIf="step === 4" class="step-content success-state">
+      <div class="success-icon">
+         <ng-icon name="lucideCircleCheckBig"></ng-icon>
+      </div>
+      <h2>Thành công!</h2>
+      <p>Mật khẩu của bạn đã được đặt lại. Hãy đăng nhập với mật khẩu mới.</p>
+      <a
+         routerLink="/login"
+         class="btn-primary"
+         style="display: block; text-align: center; text-decoration: none; margin-top: 1.5rem"
+      >
+         Đăng nhập ngay
+      </a>
+   </div>
+</div>

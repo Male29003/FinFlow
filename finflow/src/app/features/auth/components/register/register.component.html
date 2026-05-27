@@ -1,0 +1,79 @@
+<div class="auth-card">
+   <div class="auth-header">
+      <h2>FinFlow</h2>
+      <p>Tạo tài khoản mới để bắt đầu</p>
+   </div>
+
+   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <!-- Avatar preview -->
+      <div class="avatar-preview" *ngIf="previewUrl">
+         <img [src]="previewUrl" alt="avatar preview" class="preview-img" />
+         <div class="preview-info">
+            <span class="preview-name">{{ registerForm.get('name')?.value }}</span>
+            <span class="preview-hint">Ảnh đại diện tự động</span>
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label>Họ và tên</label>
+         <input
+            type="text"
+            formControlName="name"
+            placeholder="Ví dụ: Nguyễn Văn A"
+            (input)="onNameInput()"
+         />
+         <span
+            class="error-text"
+            *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid"
+         >
+            Vui lòng nhập họ và tên
+         </span>
+      </div>
+
+      <div class="form-group">
+         <label>Email</label>
+         <input type="email" formControlName="username" placeholder="Nhập địa chỉ email..." />
+         <span
+            class="error-text"
+            *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid"
+         >
+            Email không hợp lệ
+         </span>
+      </div>
+
+      <div class="form-group">
+         <label>Mật khẩu</label>
+         <div class="input-eye">
+            <input
+               [type]="showPwd ? 'text' : 'password'"
+               formControlName="password"
+               placeholder="Tối thiểu 6 ký tự"
+            />
+            <button type="button" class="eye-btn" (click)="showPwd = !showPwd">
+               <div *ngIf="!showPwd">
+                  <ng-icon name="lucideEye"></ng-icon>
+               </div>
+               <div *ngIf="showPwd">
+                  <ng-icon name="lucideEyeOff"></ng-icon>
+               </div>
+            </button>
+         </div>
+         <span
+            class="error-text"
+            *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+         >
+            Mật khẩu quá ngắn (tối thiểu 6 ký tự)
+         </span>
+      </div>
+
+      <div class="error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit" [disabled]="registerForm.invalid || isLoading" class="btn-primary">
+         {{ isLoading ? 'Đang tạo tài khoản...' : 'Đăng ký ngay' }}
+      </button>
+
+      <div class="auth-links">
+         <p>Đã có tài khoản? <a routerLink="/login">Đăng nhập tại đây</a></p>
+      </div>
+   </form>
+</div>

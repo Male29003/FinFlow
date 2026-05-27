@@ -1,0 +1,69 @@
+<div class="auth-card">
+   <div class="auth-header">
+      <h2>FinFlow</h2>
+      <p>Chào mừng trở lại</p>
+   </div>
+
+   <!-- thông báo dky thành công - chỉ khi đăng ký xong -> quay lại trang login mới có -->
+   <div class="success-banner" *ngIf="showRegisteredMsg">
+      <ng-icon name="lucideCircleCheckBig"></ng-icon>
+      Đăng ký thành công! Hãy đăng nhập để bắt đầu.
+   </div>
+
+   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-group">
+         <label for="username">Email</label>
+         <input
+            id="username"
+            type="email"
+            formControlName="username"
+            placeholder="Nhập email của bạn..."
+         />
+         <span
+            class="error-text"
+            *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid"
+         >
+            Email không hợp lệ
+         </span>
+      </div>
+
+      <div class="form-group">
+         <div class="label-row">
+            <label for="password">Mật khẩu</label>
+            <a routerLink="/forgot-password" class="forgot-link">Quên mật khẩu?</a>
+         </div>
+         <div class="input-eye">
+            <input
+               id="password"
+               [type]="showPwd ? 'text' : 'password'"
+               formControlName="password"
+               placeholder="Nhập mật khẩu..."
+            />
+            <button type="button" class="eye-btn" (click)="showPwd = !showPwd">
+               <div *ngIf="!showPwd">
+                  <ng-icon name="lucideEye"></ng-icon>
+               </div>
+               <div *ngIf="showPwd">
+                  <ng-icon name="lucideEyeOff"></ng-icon>
+               </div>
+            </button>
+         </div>
+         <span
+            class="error-text"
+            *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+         >
+            Mật khẩu phải có ít nhất 6 ký tự
+         </span>
+      </div>
+
+      <div class="error-alert" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button type="submit" [disabled]="loginForm.invalid || isLoading" class="btn-primary">
+         {{ isLoading ? 'Đang đăng nhập...' : 'Đăng nhập' }}
+      </button>
+
+      <div class="auth-links">
+         <p>Chưa có tài khoản? <a routerLink="/register">Đăng ký ngay</a></p>
+      </div>
+   </form>
+</div>
