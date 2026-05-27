@@ -31,7 +31,8 @@ namespace WebAPIs
                     {
                         policy.WithOrigins(
                             "http://localhost:4200",   // Angular
-                            "http://localhost:3000"    // React
+                            "http://localhost:3000",    // React
+                            "https://fin-flow-sage-pi.vercel.app" // app đã deploy của bạn
                         )
                             .AllowCredentials()
                             .AllowAnyMethod()
