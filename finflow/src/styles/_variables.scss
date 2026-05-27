@@ -1,0 +1,38 @@
+$primary-blue: rgb(var(--primary-rgb));
+$electric-violet: rgb(var(--accent-rgb));
+$color-success: rgb(var(--success-rgb));
+$color-error: rgb(var(--error-rgb));
+
+$french-violet: rgb(var(--french-violet-rgb));
+$vivid-pink: rgb(var(--vivid-pink-rgb));
+$hot-red: rgb(var(--hot-red-rgb));
+$orange-red: rgb(var(--orange-red-rgb));
+
+$gray-900: var(--text-main);
+$gray-700: var(--text-main);
+$gray-500: var(--text-muted);
+$gray-400: var(--border-color);
+$gray-100: var(--bg-surface-hover);
+$gray-50: var(--bg-root);
+
+// ==========================================
+// TYPOGRAPHY & SPACING
+// ==========================================
+$font-family-base:
+   'Inter',
+   system-ui,
+   -apple-system,
+   sans-serif;
+$border-radius-base: 4px;
+
+$font-size-h1: 2rem;
+$font-size-h2: 1.5rem;
+$font-size-h3: 1.25rem;
+$font-size-body: 1rem;
+$font-size-table-hdr: 0.875rem;
+$font-size-caption: 0.75rem;
+
+$font-weight-bold: 700;
+$font-weight-semibold: 600;
+$font-weight-medium: 500;
+$font-weight-regular: 400;

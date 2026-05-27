@@ -1,0 +1,155 @@
+@use 'variables' as *;
+@use 'reset';
+@use 'sass:color';
+
+// ==========================================
+// COLOR PALETTE
+// ==========================================
+:root {
+   // Brand Colors
+   --primary-rgb: 59, 130, 246; // var.$primary-blue (Bright Blue)
+   --accent-rgb: 139, 92, 246; // #8b5cf6 (Electric Violet)
+
+   // Decorative Colors
+   --french-violet-rgb: 109, 40, 217; // #6d28d9
+   --vivid-pink-rgb: 236, 72, 153; // #ec4899
+   --hot-red-rgb: 239, 68, 68; // #ef4444
+   --orange-red-rgb: 249, 115, 22; // #f97316
+
+   // Status Colors
+   --success-rgb: 22, 163, 74; // #16a34a (Green)
+   --error-rgb: 220, 38, 38; // #dc2626 (Red)
+
+   // ==========================================
+   // LIGHT THEME
+   // ==========================================
+   --bg-root: #f2f6fa; // Nền ngoài cùng của app
+   --bg-surface: #ffffff; // Nền của Sidebar, Header, Card
+   --bg-surface-hover: #f1f5f9; // Nền khi hover
+   --bg-surface-rgb: 255, 255, 255;
+   --bg-footer: #0f172a;
+
+   --text-main: #0f172a; // Tiêu đề, heading, ...
+   --text-dark: #f8fafc; // Tiêu đề, heading, ...
+   --text-muted: #64748b; // Caption, ghi chú
+
+   --border-color: #e2e8f0; // divider
+}
+[data-theme='dark'] {
+   --bg-root: #0f172a;
+   --bg-surface: #1e293b;
+   --bg-surface-hover: #334155;
+   --bg-surface-rgb: 30, 41, 59;
+
+   --text-main: #f8fafc;
+   --text-dark: #0f172a; // Tiêu đề, heading, ...
+   --text-muted: #94a3b8;
+
+   --border-color: #334155;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+}
+
+body {
+   width: 100%;
+   overflow-x: hidden;
+   font-family: $font-family-base;
+   font-size: $font-size-body;
+   color: $gray-700;
+   background-color: $gray-50;
+   -webkit-font-smoothing: antialiased;
+   transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+}
+
+// Map các cấu hình cỡ chữ chuẩn quốc tế vào thẻ HTML
+h1,
+.page-title {
+   font-size: $font-size-h1;
+   font-weight: $font-weight-bold;
+   color: $gray-900;
+}
+
+h2,
+.card-title {
+   font-size: $font-size-h2;
+   font-weight: $font-weight-semibold;
+   color: $gray-900;
+   margin-bottom: 1rem;
+}
+
+h3,
+.modal-title {
+   font-size: $font-size-h3;
+   font-weight: $font-weight-semibold;
+   color: $gray-900;
+}
+
+// Định dạng bảng dữ liệu chuẩn chỉ tài chính
+table {
+   width: 100%;
+   border-collapse: collapse;
+
+   thead {
+      background-color: $gray-100;
+
+      th {
+         font-size: $font-size-table-hdr;
+         font-weight: $font-weight-semibold;
+         color: $gray-500;
+         padding: 0.75rem 1rem;
+         text-align: left;
+         border-bottom: 1px solid $gray-400;
+      }
+   }
+
+   tbody {
+      tr {
+         border-bottom: 1px solid #e5e7eb;
+         background-color: var(--bg-surface);
+         transition: background-color 0.2s;
+
+         &:hover {
+            background-color: rgba(var(--primary-rgb), 0.05);
+         }
+
+         td {
+            font-size: $font-size-body;
+            padding: 1rem;
+            color: $gray-700;
+         }
+      }
+   }
+}
+
+// Định dạng Form/Label hệ thống
+label,
+.form-label {
+   display: block;
+   font-size: $font-size-table-hdr;
+   font-weight: $font-weight-medium;
+   color: $gray-700;
+   margin-bottom: 0.5rem;
+}
+
+.text-caption {
+   font-size: $font-size-caption;
+   color: $gray-500;
+}
+
+// Class tiện ích trạng thái tiền tệ
+.money-income {
+   color: $color-success;
+   font-weight: $font-weight-bold;
+}
+
+.money-expense {
+   color: $color-error;
+   font-weight: $font-weight-bold;
+}
