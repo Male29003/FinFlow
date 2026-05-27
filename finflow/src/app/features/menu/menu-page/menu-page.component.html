@@ -1,0 +1,88 @@
+<div class="menu-page">
+   <!-- Profile -->
+   <div class="profile-hero">
+      <div class="avatar-ring">
+         <img class="avatar" [src]="avatarUrl" alt="avatar" />
+      </div>
+      <h2 class="user-name">{{ userName }}</h2>
+      <p class="user-email">{{ userEmail }}</p>
+      <a routerLink="/profile" class="edit-btn">
+         <ng-icon name="lucideSquarePen"></ng-icon>
+         Chỉnh sửa hồ sơ
+      </a>
+   </div>
+
+   <div class="menu-body">
+      <!-- Group: Tài chính -->
+      <div class="menu-group">
+         <p class="group-label">Quản lý tài chính</p>
+         <div class="group-card">
+            <a routerLink="/accounts" class="list-item">
+               <div class="item-icon blue">
+                  <ng-icon name="lucideCreditCard"></ng-icon>
+               </div>
+               <span class="item-label">Tài khoản</span>
+            </a>
+            <div class="divider"></div>
+            <a routerLink="/account-types" class="list-item">
+               <div class="item-icon violet">
+                  <ng-icon name="lucideLayers"></ng-icon>
+               </div>
+               <span class="item-label">Loại tài khoản</span>
+            </a>
+            <div class="divider"></div>
+            <a routerLink="/category" class="list-item">
+               <div class="item-icon teal">
+                  <ng-icon name="lucideTag"></ng-icon>
+               </div>
+               <span class="item-label">Thể loại thu chi</span>
+            </a>
+         </div>
+      </div>
+
+      <!-- Group: Cài đặt -->
+      <div class="menu-group">
+         <p class="group-label">Cài đặt</p>
+         <div class="group-card">
+            <a routerLink="/change-password" class="list-item">
+               <div class="item-icon amber">
+                  <ng-icon name="lucideLock"></ng-icon>
+               </div>
+               <span class="item-label">Đổi mật khẩu</span>
+            </a>
+            <div class="divider"></div>
+            <div class="list-item no-arrow">
+               <div class="item-icon" [class]="isDark ? 'violet' : 'gray'">
+                  <div *ngIf="isDark">
+                     <ng-icon name="lucideSun"></ng-icon>
+                  </div>
+                  <div *ngIf="!isDark">
+                     <ng-icon name="lucideMoon"></ng-icon>
+                  </div>
+               </div>
+               <span class="item-label">
+                  Chế độ
+                  <span *ngIf="isDark">sáng</span>
+                  <span *ngIf="!isDark">tối</span>
+               </span>
+               <button
+                  class="toggle-switch"
+                  [class.active]="isDark"
+                  (click)="toggleTheme()"
+                  aria-label="Toggle dark mode"
+               >
+                  <span class="toggle-knob"></span>
+               </button>
+            </div>
+         </div>
+      </div>
+
+      <!-- Logout -->
+      <button class="logout-btn" (click)="logout()">
+         <ng-icon name="lucideLogOut"></ng-icon>
+         Đăng xuất
+      </button>
+
+      <p class="version-label">FinFlow v1.0.0</p>
+   </div>
+</div>

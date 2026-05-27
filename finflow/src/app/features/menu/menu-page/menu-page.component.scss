@@ -1,0 +1,259 @@
+@use 'styles/variables' as var;
+
+:host {
+   display: block;
+   min-height: 100%;
+}
+
+.menu-page {
+   max-width: 480px;
+   margin: 0 auto;
+   padding-bottom: 2rem;
+}
+
+// Profile
+.profile-hero {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 2.5rem 1.5rem 2rem;
+   text-align: center;
+}
+
+.avatar-ring {
+   width: 88px;
+   height: 88px;
+   border-radius: 50%;
+   padding: 3px;
+   background: linear-gradient(135deg, var.$primary-blue, var.$electric-violet);
+   margin-bottom: 1rem;
+   flex-shrink: 0;
+
+   .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--bg-surface);
+      display: block;
+   }
+}
+
+.user-name {
+   font-size: 1.25rem;
+   font-weight: var.$font-weight-bold;
+   color: var.$gray-900;
+   margin: 0 0 0.25rem;
+}
+
+.user-email {
+   font-size: 0.875rem;
+   color: var.$gray-500;
+   margin: 0 0 1.25rem;
+}
+
+.edit-btn {
+   display: inline-flex;
+   align-items: center;
+   gap: 0.4rem;
+   padding: 0.5rem 1.25rem;
+   border-radius: 999px;
+   background: rgba(var(--primary-rgb), 0.08);
+   color: var.$primary-blue;
+   font-size: 0.875rem;
+   font-weight: var.$font-weight-medium;
+   text-decoration: none;
+   transition: background 0.2s;
+
+   svg,
+   ng-icon {
+      width: 14px;
+      height: 14px;
+   }
+
+   &:hover {
+      background: rgba(var(--primary-rgb), 0.15);
+   }
+}
+
+// Menu
+.menu-body {
+   padding: 0 1rem;
+   display: flex;
+   flex-direction: column;
+   gap: 1.5rem;
+}
+
+// Group
+.menu-group {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.group-label {
+   font-size: 0.75rem;
+   font-weight: var.$font-weight-bold;
+   color: var.$gray-500;
+   text-transform: uppercase;
+   letter-spacing: 0.06em;
+   padding: 0 0.25rem;
+   margin: 0;
+}
+
+.group-card {
+   background: var(--bg-surface);
+   border-radius: 16px;
+   border: 1px solid rgba(0, 0, 0, 0.06);
+   overflow: hidden;
+}
+
+// Danh sách item
+.list-item {
+   display: flex;
+   align-items: center;
+   gap: 0.875rem;
+   padding: 0.875rem 1rem;
+   text-decoration: none;
+   color: var.$gray-900;
+   transition: background 0.15s;
+   cursor: pointer;
+
+   &:hover {
+      background: var.$gray-50;
+   }
+
+   &.no-arrow {
+      cursor: default;
+      &:hover {
+         background: transparent;
+      }
+   }
+}
+
+.item-icon {
+   width: 36px;
+   height: 36px;
+   border-radius: 10px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+
+   svg,
+   ng-icon {
+      width: 18px;
+      height: 18px;
+   }
+
+   &.blue {
+      background: rgba(24, 95, 165, 0.1);
+      color: var.$primary-blue;
+   }
+   &.violet {
+      background: rgba(109, 40, 217, 0.1);
+      color: var.$electric-violet;
+   }
+   &.teal {
+      background: rgba(20, 184, 166, 0.1);
+      color: #0d9488;
+   }
+   &.gray {
+      background: var.$gray-100;
+      color: var.$gray-700;
+   }
+   &.amber {
+      background: rgba(245, 158, 11, 0.1);
+      color: #d97706;
+   }
+}
+
+.item-label {
+   flex: 1;
+   font-size: 0.9375rem;
+   font-weight: var.$font-weight-medium;
+}
+
+.arrow {
+   width: 16px;
+   height: 16px;
+   color: var.$gray-400;
+}
+
+.divider {
+   height: 1px;
+   background: var.$gray-100;
+   margin: 0 1rem;
+}
+
+// Toggle Btn
+.toggle-switch {
+   width: 44px;
+   height: 26px;
+   border-radius: 999px;
+   background: var.$gray-400;
+   border: none;
+   cursor: pointer;
+   padding: 3px;
+   display: flex;
+   align-items: center;
+   transition: background 0.25s;
+   flex-shrink: 0;
+
+   &.active {
+      background: var.$primary-blue;
+      justify-content: flex-end;
+   }
+
+   .toggle-knob {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      transition: none;
+   }
+}
+
+// Logout
+.logout-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 0.5rem;
+   width: 100%;
+   padding: 0.9rem;
+   border-radius: 14px;
+   border: 1.5px solid rgba(var(--error-rgb), 0.25);
+   background: rgba(var(--error-rgb), 0.04);
+   color: var.$hot-red;
+   font-size: 0.9375rem;
+   font-weight: var.$font-weight-medium;
+   cursor: pointer;
+   transition: all 0.2s;
+
+   svg,
+   ng-icon {
+      width: 18px;
+      height: 18px;
+   }
+
+   &:hover {
+      background: rgba(var(--error-rgb), 0.1);
+      border-color: var.$hot-red;
+   }
+}
+
+.version-label {
+   text-align: center;
+   font-size: 0.75rem;
+   color: var(--text-main);
+   margin: 0;
+}
+
+// Desktop thì ẩntrang  đi
+@media (min-width: 768px) {
+   .menu-page {
+      display: none;
+   }
+}
