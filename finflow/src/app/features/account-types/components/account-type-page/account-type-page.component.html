@@ -1,0 +1,111 @@
+<div class="page-container">
+   <!-- Header - mobile only -->
+   <div class="page-top">
+      <button class="back-btn" (click)="goBack()">
+         <ng-icon name="lucideArrowLeft"></ng-icon>
+      </button>
+      <h1 class="page-title">Loại tài khoản</h1>
+      <div style="width: 36px"></div>
+   </div>
+   <!-- Top header btn -->
+   <div class="page-header-actions">
+      <div class="header-text">
+         <h1 class="page-title">Loại tài khoản</h1>
+      </div>
+      <button class="btn btn-primary" (click)="openCreate()">
+         <ng-icon name="lucidePlus"></ng-icon>
+         Thêm Mới
+      </button>
+   </div>
+
+   <div class="main-panel">
+      <div class="panel-header">
+         <h3 class="panel-title">Danh sách</h3>
+         <div class="search-box">
+            <input
+               type="text"
+               class="form-control search-input"
+               placeholder="Tìm kiếm tên..."
+               [(ngModel)]="keyword"
+               (keyup.enter)="onSearch()"
+            />
+            <button class="btn btn-secondary" (click)="onSearch()">Tìm</button>
+         </div>
+      </div>
+
+      <div class="panel-body no-padding overflow-x-auto">
+         <table class="data-table">
+            <thead>
+               <tr>
+                  <th class="align-center" style="width: 10%">STT</th>
+                  <th>Tên Loại Tài Khoản</th>
+                  <th class="align-center" style="width: 15%">Thao tác</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr *ngIf="isLoading">
+                  <td colspan="3" class="text-center py-4 text-muted">Đang tải dữ liệu...</td>
+               </tr>
+               <tr *ngIf="!isLoading && accountTypes.length === 0">
+                  <td colspan="3" class="text-center py-4 text-muted">Không tìm thấy dữ liệu.</td>
+               </tr>
+
+               <tr *ngFor="let item of accountTypes; let i = index">
+                  <td class="align-center text-muted">{{ (page - 1) * pageSize + i + 1 }}</td>
+                  <td>
+                     <strong>{{ item.ten }}</strong>
+                  </td>
+                  <td class="align-center row-actions">
+                     <button
+                        class="icon-btn-small text-blue"
+                        (click)="openUpdate(item)"
+                        title="Sửa"
+                     >
+                        <ng-icon name="lucidePencil"></ng-icon>
+                     </button>
+                     <button
+                        class="icon-btn-small text-red"
+                        (click)="handleDelete(item.id)"
+                        title="Xóa"
+                     >
+                        <ng-icon name="lucideTrash"></ng-icon>
+                     </button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </div>
+   </div>
+   <app-pagination
+      [page]="page"
+      [pageSize]="pageSize"
+      [totalCount]="totalCount"
+      (pageChange)="changePage($event)"
+      (pageSizeChange)="changePageSize($event)"
+   >
+   </app-pagination>
+
+   <div class="modal-overlay" *ngIf="isModalOpen">
+      <div class="modal-content modal-sm">
+         <div class="modal-header">
+            <h3 class="modal-title">{{ isEditMode ? 'Cập Nhật Loại' : 'Tạo Loại Tài Khoản' }}</h3>
+            <button class="close-btn" (click)="isModalOpen = false">×</button>
+         </div>
+         <div class="modal-body">
+            <div class="form-group">
+               <label>Tên loại tài khoản <span class="required">*</span></label>
+               <input
+                  type="text"
+                  [(ngModel)]="newTypeName"
+                  class="form-control"
+                  placeholder="Ví dụ: Thẻ tín dụng, Tiền mặt..."
+               />
+            </div>
+         </div>
+         <div class="modal-actions">
+            <button class="btn btn-secondary" (click)="isModalOpen = false">Hủy</button>
+            <button class="btn btn-primary" (click)="submitForm()">Lưu lại</button>
+         </div>
+      </div>
+   </div>
+</div>
