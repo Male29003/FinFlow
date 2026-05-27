@@ -1,0 +1,94 @@
+<div class="profile-page">
+   <!-- Header - mobile only -->
+   <div class="page-top">
+      <button class="back-btn" (click)="goBack()">
+         <ng-icon name="lucideChevronLeft"></ng-icon>
+      </button>
+      <h1 class="page-title">Hồ sơ cá nhân</h1>
+      <div style="width: 36px"></div>
+   </div>
+
+   <!-- Avatar Section -->
+   <div class="avatar-section">
+      <div class="avatar-wrapper">
+         <img class="avatar-img" [src]="avatarUrl" alt="avatar" />
+      </div>
+      <p class="avatar-hint">Ảnh được tạo tự động từ tên của bạn</p>
+   </div>
+
+   <!-- Thông tin cá nhân  -->
+   <div class="profile-card">
+      <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+         <div class="section-title">Thông tin cá nhân</div>
+
+         <div class="form-group">
+            <label for="name">Họ và tên</label>
+            <div class="input-wrapper">
+               <div class="input-icon">
+                  <ng-icon name="lucideUser"></ng-icon>
+               </div>
+               <input
+                  id="name"
+                  type="text"
+                  formControlName="name"
+                  placeholder="Nhập họ và tên..."
+               />
+            </div>
+            <span
+               class="error-text"
+               *ngIf="profileForm.get('name')?.touched && profileForm.get('name')?.invalid"
+            >
+               Vui lòng nhập họ và tên
+            </span>
+         </div>
+
+         <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+               <div class="input-icon">
+                  <ng-icon name="lucideMail"></ng-icon>
+               </div>
+               <input
+                  id="email"
+                  type="email"
+                  formControlName="email"
+                  placeholder="Email..."
+                  readonly
+               />
+            </div>
+            <span class="field-hint">* Email không thể thay đổi</span>
+         </div>
+
+         <!-- Alert messages -->
+         <div class="alert success-alert" *ngIf="successMessage">
+            <ng-icon name="lucideCircleCheckBig"></ng-icon>
+            {{ successMessage }}
+         </div>
+         <div class="alert error-alert" *ngIf="errorMessage">
+            <ng-icon name="lucideCircleX"></ng-icon>
+            {{ errorMessage }}
+         </div>
+
+         <button type="submit" class="save-btn" [disabled]="profileForm.invalid || isSaving">
+            <div *ngIf="isSaving" class="spin-icon">
+               <ng-icon name="lucideLoader"></ng-icon>
+            </div>
+            {{ isSaving ? 'Đang lưu...' : 'Lưu thay đổi' }}
+         </button>
+      </form>
+   </div>
+
+   <!-- Quick Links -->
+   <div class="quick-links">
+      <a routerLink="/change-password" class="quick-link-item">
+         <div class="ql-icon">
+            <ng-icon name="lucideLock"></ng-icon>
+         </div>
+         <div class="ql-text">
+            <span class="ql-title">Đổi mật khẩu</span>
+            <span class="ql-sub">Cập nhật mật khẩu của bạn</span>
+         </div>
+         <ng-icon name="lucideChevronLeft"></ng-icon>
+      </a>
+   </div>
+</div>
