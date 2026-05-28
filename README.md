@@ -110,4 +110,4 @@ ng serve
 
 ## 📫 Thông tin liên hệ
 
-Nếu bạn có bất kỳ thắc mắc nào về dự án hoặc gặp khó khăn khi cài đặt, vui lòng liên hệ với tôi qua email: **nam23009@gmail.com**
+Nếu bạn có bất kỳ thắc mắc nào về dự án hoặc gặp khó khăn khi cài đặt, vui lòng liên hệ với tôi qua email: **namnguyen23009@gmail.com**
