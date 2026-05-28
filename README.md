@@ -1,4 +1,3 @@
-````markdown
 # 💸 FinFlow - Personal Finance Management
 
 FinFlow là một ứng dụng web quản lý tài chính cá nhân hiện đại, giúp người dùng dễ dàng theo dõi thu nhập, chi tiêu và quản lý ngân sách hiệu quả. Dự án được xây dựng với mục tiêu mang lại trải nghiệm mượt mà, trực quan cùng khả năng đồng bộ dữ liệu theo thời gian thực.
