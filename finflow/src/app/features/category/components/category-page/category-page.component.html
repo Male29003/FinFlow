@@ -33,7 +33,10 @@
 
       <div class="section-wrapper mb-4">
          <h3 class="section-title">Danh mục của tôi</h3>
-         <div class="category-grid">
+         <div class="category-grid mb-4" *ngIf="isLoading">
+            <div class="skeleton-card" style="height: 90px" *ngFor="let i of [1, 2, 3]"></div>
+         </div>
+         <div class="category-grid" *ngIf="!isLoading">
             <div class="cat-card add-card" (click)="openCreate()">
                <div class="cat-icon">+</div>
                <div class="cat-name">Thêm mới</div>
@@ -56,7 +59,14 @@
 
       <div class="section-wrapper" *ngIf="systemCategories.length > 0">
          <h3 class="section-title">Mặc định hệ thống</h3>
-         <div class="category-grid">
+         <div class="category-grid mb-4" *ngIf="isLoading">
+            <div
+               class="skeleton-card"
+               style="height: 90px"
+               *ngFor="let i of [1, 2, 3, 4, 5, 6]"
+            ></div>
+         </div>
+         <div class="category-grid" *ngIf="!isLoading">
             <div class="cat-card system-card" *ngFor="let item of systemCategories">
                <div class="cat-icon">{{ parseCategory(item.tenTheLoai).icon }}</div>
                <div class="cat-name">{{ parseCategory(item.tenTheLoai).text }}</div>

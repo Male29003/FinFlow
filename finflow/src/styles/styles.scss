@@ -2,9 +2,7 @@
 @use 'reset';
 @use 'sass:color';
 
-// ==========================================
-// COLOR PALETTE
-// ==========================================
+// Color pallete
 :root {
    // Brand Colors
    --primary-rgb: 59, 130, 246; // var.$primary-blue (Bright Blue)
@@ -20,9 +18,7 @@
    --success-rgb: 22, 163, 74; // #16a34a (Green)
    --error-rgb: 220, 38, 38; // #dc2626 (Red)
 
-   // ==========================================
-   // LIGHT THEME
-   // ==========================================
+   // Light theme
    --bg-root: #f2f6fa; // Nền ngoài cùng của app
    --bg-surface: #ffffff; // Nền của Sidebar, Header, Card
    --bg-surface-hover: #f1f5f9; // Nền khi hover
@@ -35,6 +31,7 @@
 
    --border-color: #e2e8f0; // divider
 }
+// Dark theme
 [data-theme='dark'] {
    --bg-root: #0f172a;
    --bg-surface: #1e293b;
@@ -68,7 +65,7 @@ body {
       color 0.3s ease;
 }
 
-// Map các cấu hình cỡ chữ chuẩn quốc tế vào thẻ HTML
+// Tepography
 h1,
 .page-title {
    font-size: $font-size-h1;
@@ -91,7 +88,7 @@ h3,
    color: $gray-900;
 }
 
-// Định dạng bảng dữ liệu chuẩn chỉ tài chính
+// table
 table {
    width: 100%;
    border-collapse: collapse;
@@ -128,7 +125,7 @@ table {
    }
 }
 
-// Định dạng Form/Label hệ thống
+// Form: input, lable
 label,
 .form-label {
    display: block;
@@ -143,7 +140,6 @@ label,
    color: $gray-500;
 }
 
-// Class tiện ích trạng thái tiền tệ
 .money-income {
    color: $color-success;
    font-weight: $font-weight-bold;
@@ -152,4 +148,50 @@ label,
 .money-expense {
    color: $color-error;
    font-weight: $font-weight-bold;
+}
+
+/* skeleton */
+.skeleton-card {
+   border-radius: 16px;
+   background: linear-gradient(
+      90deg,
+      var(--bg-surface) 25%,
+      var(--bg-surface-hover) 50%,
+      var(--bg-surface) 75%
+   );
+   background-size: 200% 100%;
+   animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-line {
+   height: 20px;
+   border-radius: 6px;
+   width: 100%;
+   background: linear-gradient(
+      90deg,
+      var(--bg-surface) 25%,
+      var(--bg-surface-hover) 50%,
+      var(--bg-surface) 75%
+   );
+   background-size: 200% 100%;
+   animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-grid {
+   display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   gap: 1rem;
+   margin-bottom: 1.5rem;
+   @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+   }
+}
+
+@keyframes shimmer {
+   0% {
+      background-position: 200% 0;
+   }
+   100% {
+      background-position: -200% 0;
+   }
 }

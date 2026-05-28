@@ -43,9 +43,23 @@
                </tr>
             </thead>
             <tbody>
-               <tr *ngIf="isLoading">
-                  <td colspan="3" class="text-center py-4 text-muted">Đang tải dữ liệu...</td>
-               </tr>
+               <ng-container *ngIf="isLoading">
+                  <tr *ngFor="let i of [1, 2, 3, 4, 5]">
+                     <td>
+                        <div
+                           class="skeleton-line"
+                           style="height: 40px; width: 30px; margin: auto"
+                        ></div>
+                     </td>
+                     <td><div class="skeleton-line" style="height: 40px; width: 60%"></div></td>
+                     <td>
+                        <div
+                           class="skeleton-line"
+                           style="height: 40px; width: 80px; margin: auto"
+                        ></div>
+                     </td>
+                  </tr>
+               </ng-container>
                <tr *ngIf="!isLoading && accountTypes.length === 0">
                   <td colspan="3" class="text-center py-4 text-muted">Không tìm thấy dữ liệu.</td>
                </tr>

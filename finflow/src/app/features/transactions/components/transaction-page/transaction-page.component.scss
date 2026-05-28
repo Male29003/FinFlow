@@ -262,8 +262,13 @@
    }
 
    &.btn-primary {
+      display: none;
       background-color: var.$primary-blue;
       color: white;
+
+      @media (min-width: 768px) {
+         display: block;
+      }
       &:hover {
          background-color: rgba(var(--primary-rgb), 0.9);
          transform: translateY(-1px);

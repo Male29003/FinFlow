@@ -26,6 +26,11 @@
       </div>
    </div>
 
+   <!-- data table -->
+   <!-- skeleton -->
+   <div class="account-grid" *ngIf="isLoading">
+      <div class="skeleton-card" style="height: 140px" *ngFor="let i of [1, 2, 3, 4]"></div>
+   </div>
    <div class="account-grid" *ngIf="!isLoading">
       <div class="account-card" *ngFor="let acc of accounts">
          <div class="card-top">
@@ -49,7 +54,10 @@
    <div class="modal-overlay" *ngIf="isLinkBankModalOpen">
       <div class="modal-content">
          <div class="modal-header">
-            <h3 class="modal-title">🔗 Liên kết Ngân hàng</h3>
+            <div style="display: flex; white-space: inherit">
+               <ng-icon name="lucideLink"></ng-icon>
+               <h3 class="modal-title">Liên kết Ngân hàng</h3>
+            </div>
             <button class="close-btn" (click)="isLinkBankModalOpen = false">×</button>
          </div>
          <div class="modal-body">
