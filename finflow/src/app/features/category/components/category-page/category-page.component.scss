@@ -315,8 +315,8 @@
 }
 
 .modal-content.modal-sm {
-   background: #ffffff;
-   border-radius: 20px; // Bo cong mềm mại
+   background-color: var(--bg-surface);
+   border-radius: 16px;
    width: 100%;
    max-width: 420px;
    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
@@ -331,43 +331,40 @@
    justify-content: space-between;
    align-items: center;
    padding: 1.5rem 1.5rem 1rem;
+   border-bottom: 1px solid var(--border-color);
 
    .modal-title {
       font-size: 1.25rem;
-      font-weight: 700;
+      font-weight: var.$font-weight-bold;
       margin: 0;
-      color: #111827;
+      color: var(--text-main);
    }
 
    .close-btn {
-      background: #f3f4f6;
+      background: none;
       border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #6b7280;
+      font-size: 1.5rem;
+      color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: color 0.2s;
       &:hover {
-         background: #e5e7eb;
-         color: #111827;
-      }
-      svg,
-      ng-icon {
-         width: 18px;
-         height: 18px;
+         color: var.$color-error;
       }
    }
 }
 
 .modal-body {
-   padding: 0 1.5rem 1.5rem;
+   padding: 1.25rem;
    display: flex;
    flex-direction: column;
    gap: 1.25rem;
+   &::-webkit-scrollbar {
+      width: 4px;
+   }
+   &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+   }
 }
 
 .form-group {
@@ -376,11 +373,11 @@
    gap: 0.5rem;
 
    label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #374151;
+      font-size: 0.85rem;
+      font-weight: var.$font-weight-medium;
+      color: var(--text-main);
       .required {
-         color: #ef4444;
+         color: var.$color-error;
       }
       .optional {
          color: #9ca3af;
@@ -393,7 +390,7 @@
 .modern-radio-tabs {
    display: flex;
    gap: 0.5rem;
-   background: #f3f4f6;
+   background-color: var(--bg-surface-hover);
    padding: 4px;
    border-radius: 12px;
 
@@ -416,39 +413,37 @@
       }
 
       input:checked + .tab-btn {
-         background: #ffffff;
-         color: #111827;
+         background-color: var(--bg-surface);
+         color: var(--text-main);
          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
       input[value='Thu']:checked + .tab-btn {
-         color: #10b981;
-      } // Màu xanh
+         color: var.$color-success;
+      }
       input[value='Chi']:checked + .tab-btn {
-         color: #ef4444;
-      } // Màu đỏ
+         color: var.$color-error;
+      }
    }
 }
 
 .modern-input {
    width: 100%;
-   padding: 0.75rem 1rem;
-   background: #f9fafb;
-   border: 1px solid #e5e7eb;
-   border-radius: 12px;
-   font-size: 0.95rem;
-   color: #111827;
-   outline: none;
-   transition: all 0.2s;
+   max-width: 100%;
+   padding: 0.6rem 0.85rem;
+   border-radius: 8px;
+   border: 1px solid var(--border-color);
+   background-color: var(--bg-root);
    font-family: inherit;
-   box-sizing: border-box;
+   font-size: 0.9rem;
+   color: var(--text-main);
+   transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
-   &::placeholder {
-      color: #9ca3af;
-   }
    &:focus {
-      background: #ffffff;
+      outline: none;
       border-color: var.$primary-blue;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
    }
 }
 textarea.modern-input {
@@ -467,8 +462,8 @@ textarea.modern-input {
    align-items: center;
    gap: 0.75rem;
    padding: 1.25rem 1.5rem;
-   background: #f9fafb;
-   border-top: 1px solid #f3f4f6;
+   border-top: 1px solid var(--border-color);
+   background-color: var(--bg-surface);
 
    .spacer {
       flex: 1;
@@ -482,7 +477,7 @@ textarea.modern-input {
    gap: 0.4rem;
    padding: 0.6rem 1.25rem;
    border-radius: 10px;
-   font-weight: 600;
+   font-weight: var.$font-weight-semibold;
    font-size: 0.95rem;
    border: none;
    cursor: pointer;
@@ -496,26 +491,25 @@ textarea.modern-input {
    }
 
    &.btn-cancel {
-      background: #ffffff;
-      border: 1px solid #d1d5db;
-      color: #374151;
+      background-color: var(--bg-surface-hover);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
       &:hover {
-         background: #f3f4f6;
+         background-color: var(--border-color);
       }
    }
 
    &.btn-save {
-      background: var.$primary-blue;
-      color: #ffffff;
-      &:hover:not(:disabled) {
-         background: #2563eb;
+      background-color: var.$primary-blue;
+      color: white;
+      &:hover {
+         background-color: rgba(var(--primary-rgb), 0.9);
          transform: translateY(-1px);
-         box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
       }
       &:disabled {
-         background: #9ca3af;
+         background-color: var.$gray-400;
          cursor: not-allowed;
-         opacity: 0.7;
+         transform: none;
       }
    }
 

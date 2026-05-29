@@ -12,6 +12,8 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
 import { NgIcon } from '@ng-icons/core';
+import { ConfirmService } from '../../../../shared/services/confirm.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 const passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
    const p = group.get('newPassword')?.value;
    const c = group.get('confirmPassword')?.value;
@@ -29,6 +31,7 @@ export class ChangePasswordComponent {
    private fb = inject(FormBuilder);
    private authService = inject(AuthService);
    private router = inject(Router);
+   private confirmService = inject(ConfirmService);
 
    showCurrent = false;
    showNew = false;
@@ -61,8 +64,15 @@ export class ChangePasswordComponent {
       return { percent: 100, cls: 'strong', label: 'Rất mạnh' };
    }
 
-   goToForgotPassword() {
-      if (confirm('Bạn sẽ phải đăng xuất để khôi phục mật khẩu. Bạn có muốn tiếp tục ?')) {
+   async goToForgotPassword() {
+      const isConfirmed = await this.confirmService.confirm(
+         'Xác nhận đăng xuất',
+         'Bạn sẽ phải đăng xuất để khôi phục mật khẩu. Bạn có muốn tiếp tục?',
+         'OK',
+         'Hủy',
+         'warning',
+      );
+      if (isConfirmed) {
          this.authService.clearUser();
          this.router.navigate(['/forgot-password']);
       }

@@ -79,7 +79,7 @@
    <div class="modal-overlay" *ngIf="isModalOpen">
       <div class="modal-content modal-sm">
          <div class="modal-header">
-            <h3 class="modal-title">{{ isEditMode ? 'Sửa Danh Mục' : 'Thêm Mới' }}</h3>
+            <h3 class="modal-title">{{ isEditMode ? 'Sửa Thể loại' : 'Thêm Mới' }}</h3>
             <button class="close-btn" (click)="closeModal()">
                <ng-icon name="lucideX"></ng-icon>
             </button>
@@ -130,6 +130,7 @@
                type="button"
                class="btn btn-danger"
                (click)="handleDelete(selectedItem.id)"
+               [disabled]="isProcessing"
             >
                <ng-icon name="lucideTrash"></ng-icon>
                Xóa
@@ -140,7 +141,7 @@
             <button
                type="button"
                class="btn btn-save"
-               [disabled]="!formData.tenTheLoai"
+               [disabled]="!formData.tenTheLoai || isProcessing"
                (click)="submitForm()"
             >
                Lưu

@@ -68,11 +68,9 @@
             <div *ngIf="isLoading" style="width: 100%; height: 100%; padding: 1rem">
                <div class="skeleton-card" style="width: 100%; height: 100%"></div>
             </div>
-            <div *ngIf="data.length === 0" class="empty-state">
-               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M3 9h18M9 21V9" />
-               </svg>
+            <div *ngIf="!isLoading && data.length === 0" class="empty-state">
+               <ng-icon name="lucideChartColumnBig"></ng-icon>
+
                Không có dữ liệu trong khoảng thời gian này.
             </div>
             <app-grouped-bar-chart-by-account *ngIf="data.length > 0" [transactionData]="data">
@@ -171,7 +169,7 @@
          </div>
       </div>
 
-      <!-- bảng to thu / chi -->
+      <!-- bảng thu / chi -->
       <div class="top-stats-grid" *ngIf="data.length > 0">
          <div class="panel table-panel">
             <div class="panel-header">
@@ -200,12 +198,8 @@
                         >+{{ item.tongThu | number: '1.0-0' }} ₫</span
                      >
                   </div>
-                  <div *ngIf="topIncome.length === 0" class="top-empty">
-                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                     </svg>
+                  <div *ngIf="!isLoading && topIncome.length === 0" class="top-empty">
+                     <ng-icon name="lucideChartColumnBig"></ng-icon>
                      Chưa có dữ liệu thu nhập
                   </div>
                </div>
@@ -239,7 +233,7 @@
                         >-{{ item.tongChi | number: '1.0-0' }} ₫</span
                      >
                   </div>
-                  <div *ngIf="topExpense.length === 0" class="top-empty">
+                  <div *ngIf="!isLoading && topExpense.length === 0" class="top-empty">
                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />

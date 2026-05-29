@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon } from '@ng-icons/core';
 import { SignalRService } from '../../../../core/services/signalr.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
    selector: 'app-dashboard-page',
@@ -20,6 +21,7 @@ export class DashboardPageComponent implements OnInit {
    private transactionService = inject(TransactionService);
    private signalRService = inject(SignalRService);
    private destroyRef = inject(DestroyRef);
+   private toastService = inject(ToastService);
 
    totalBalance = 0;
    totalIncome = 0;
@@ -98,7 +100,7 @@ export class DashboardPageComponent implements OnInit {
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
             console.error('Lỗi tải dữ liệu Dashboard:', err);
             if (!isSilent) {
                this.isLoading = false;

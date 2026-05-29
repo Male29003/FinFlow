@@ -7,6 +7,7 @@ interface ConfirmState {
    message: string;
    confirmText?: string;
    cancelText?: string;
+   type?: 'danger' | 'primary' | 'warning';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -21,8 +22,9 @@ export class ConfirmService {
       message: string,
       confirmText = 'Xác nhận',
       cancelText = 'Hủy',
+      type: 'danger' | 'primary' | 'warning' = 'danger',
    ): Promise<boolean> {
-      this.state.next({ show: true, title, message, confirmText, cancelText });
+      this.state.next({ show: true, title, message, confirmText, cancelText, type });
 
       return new Promise((resolve) => {
          this.resolveFn = resolve;
@@ -30,12 +32,10 @@ export class ConfirmService {
    }
 
    respond(result: boolean) {
-      // Đóng modal
       this.state.next({ show: false, title: '', message: '' });
 
       if (this.resolveFn) {
          this.resolveFn(result);
-         this.resolveFn = undefined;
       }
    }
 }

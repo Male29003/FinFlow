@@ -5,6 +5,8 @@ import { TypeService } from '../../service/type.service';
 import { Category } from '../../../../shared/models/transaction.model';
 import { Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
+import { ConfirmService } from '../../../../shared/services/confirm.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
    selector: 'app-category-page',
@@ -16,10 +18,13 @@ import { NgIcon } from '@ng-icons/core';
 export class CategoryPageComponent implements OnInit {
    private typeService = inject(TypeService);
    private router = inject(Router);
+   private toastService = inject(ToastService);
+   private confirmService = inject(ConfirmService);
 
    activeTab: 'Thu' | 'Chi' = 'Chi';
    categories: Category[] = [];
    isLoading = false;
+   isProcessing = false;
 
    isModalOpen = false;
    isEditMode = false;
@@ -77,7 +82,7 @@ export class CategoryPageComponent implements OnInit {
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
             this.isLoading = false;
          },
       });
@@ -108,8 +113,9 @@ export class CategoryPageComponent implements OnInit {
    }
 
    submitForm(): void {
-      if (!this.formData.tenTheLoai.trim()) return alert('Vui lòng nhập tên thể loại!');
-
+      if (!this.formData.tenTheLoai.trim())
+         this.toastService.warning('Vui lòng nhập tên thể loại!');
+      this.isProcessing = true;
       const payload = { ...this.formData };
       if (!payload.moTa || payload.moTa.trim() === '') payload.moTa = null as any;
       const request = this.isEditMode
@@ -119,28 +125,41 @@ export class CategoryPageComponent implements OnInit {
       request.subscribe({
          next: () => {
             this.isModalOpen = false;
+            this.isProcessing = false;
+            this.toastService.success(this.isEditMode ? 'Cập nhật thành công.' : 'Tạo thành công.');
             this.loadData();
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.isProcessing = false;
+            this.toastService.error(msg);
          },
       });
    }
 
-   handleDelete(id: number): void {
+   async handleDelete(id: number) {
       if (!this.selectedItem) return;
-      if (
-         confirm('Xóa thể loại này có thể ảnh hưởng đến các giao dịch lịch sử. Bạn có chắc không?')
-      ) {
+
+      this.isProcessing = true;
+      const isConfirmed = await this.confirmService.confirm(
+         'Xóa Thể loại',
+         'Xóa thể loại này có thể ảnh hưởng đến các giao dịch lịch sử. Hành động này không thể hoàn tác?',
+         'Xóa',
+         'Hủy',
+      );
+      if (isConfirmed) {
          this.typeService.deleteType(id).subscribe({
             next: (res: any) => {
+               this.isProcessing = false;
                this.closeModal();
+               this.toastService.success('Xóa thành công Thể loại.');
+               this.categories = [];
                this.loadData();
             },
             error: (err) => {
                const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-               alert(msg);
+               this.isProcessing = false;
+               this.toastService.error(msg);
             },
          });
       }

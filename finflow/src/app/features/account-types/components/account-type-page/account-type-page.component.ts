@@ -6,6 +6,9 @@ import { AccountType } from '../../../../shared/models/account.model';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.compnent';
 import { Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
+import { ConfirmModalComponent } from '../../../../shared/components/confirm-modal/confirm-modal.component';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ConfirmService } from '../../../../shared/services/confirm.service';
 
 @Component({
    selector: 'app-account-type-page',
@@ -17,6 +20,8 @@ import { NgIcon } from '@ng-icons/core';
 export class AccountTypePageComponent implements OnInit {
    private accountTypeService = inject(AccountTypeService);
    private router = inject(Router);
+   private toastService = inject(ToastService);
+   private confirmService = inject(ConfirmService);
 
    accountTypes: AccountType[] = [];
    totalCount = 0;
@@ -79,7 +84,7 @@ export class AccountTypePageComponent implements OnInit {
 
    submitForm(): void {
       if (!this.newTypeName.trim()) {
-         alert('Vui lòng nhập tên loại tài khoản!');
+         this.toastService.warning('Vui lòng nhập tên loại tài khoản!');
          return;
       }
 
@@ -88,32 +93,42 @@ export class AccountTypePageComponent implements OnInit {
               ten: this.newTypeName,
            })
          : this.accountTypeService.createAccountType({ Ten: this.newTypeName });
-
       request.subscribe({
          next: () => {
             this.isModalOpen = false;
+            this.toastService.success(this.isEditMode ? 'Cập nhật thành công.' : 'Tạo thành công.');
             this.loadData();
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
+            console.error(err);
          },
       });
    }
 
-   handleDelete(id: number): void {
-      if (
-         confirm(
-            'Xóa mục này có thể ảnh hưởng đến các tài khoản đang sử dụng. Bạn có chắc chắn xóa?',
-         )
-      ) {
+   async handleDelete(id: number) {
+      if (!this.selectedItem) return;
+
+      const isConfirmed = await this.confirmService.confirm(
+         'Xóa loại tài khoản',
+         'Xóa mục này có thể ảnh hưởng đến các tài khoản đang sử dụng. Bạn có chắc chắn xóa? Hành động này không thể hoàn tác.',
+         'Xóa',
+         'Hủy',
+      );
+
+      if (isConfirmed) {
          this.accountTypeService.deleteAccountType(id).subscribe({
             next: () => {
+               this.toastService.success('Xóa thảnh công.');
+               this.isModalOpen = false;
+               this.page = 1;
+               this.accountTypes = [];
                this.loadData();
             },
             error: (err) => {
                const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-               alert(msg);
+               this.toastService.error(msg);
             },
          });
       }

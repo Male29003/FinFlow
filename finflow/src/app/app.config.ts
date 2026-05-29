@@ -45,6 +45,9 @@ import {
    lucideChevronLeft,
    lucideChevronRight,
    lucideCircleX,
+   lucideAlertTriangle,
+   lucideSave,
+   lucideInfo,
 } from '@ng-icons/lucide';
 
 export const appConfig: ApplicationConfig = {
@@ -93,6 +96,9 @@ export const appConfig: ApplicationConfig = {
          lucideChevronLeft,
          lucideChevronRight,
          lucideCircleX,
+         lucideAlertTriangle,
+         lucideSave,
+         lucideInfo,
       }),
    ],
 };

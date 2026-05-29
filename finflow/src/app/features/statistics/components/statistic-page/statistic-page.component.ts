@@ -7,6 +7,7 @@ import { CategoryProgressListComponent } from '../category-progress-list/categor
 import { NgIcon } from '@ng-icons/core';
 import { SignalRService } from '../../../../core/services/signalr.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ToastService } from '../../../../shared/services/toast.service';
 @Component({
    selector: 'app-statistic-page',
    standalone: true,
@@ -25,6 +26,7 @@ export class StatisticPageComponent implements OnInit {
    private statisticService = inject(StatisticService);
    private signalRService = inject(SignalRService);
    private destroyRef = inject(DestroyRef);
+   private toastService = inject(ToastService);
 
    // data cho chart thống kê theo tài khoản
    data: any[] = [];
@@ -62,7 +64,7 @@ export class StatisticPageComponent implements OnInit {
    }
 
    loadData(isSilent: boolean = false): void {
-      if (!this.tuNgay || !this.denNgay) return alert('Vui lòng chọn ngày!');
+      if (!this.tuNgay || !this.denNgay) return this.toastService.warning('Vui lòng chọn ngày!');
 
       if (!isSilent) {
          this.isLoading = true;
@@ -109,7 +111,7 @@ export class StatisticPageComponent implements OnInit {
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
             if (!isSilent) {
                this.isLoading = false;
             }
@@ -133,7 +135,7 @@ export class StatisticPageComponent implements OnInit {
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
             this.isLoading = false;
          },
       });

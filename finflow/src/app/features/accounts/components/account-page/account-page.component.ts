@@ -7,6 +7,8 @@ import { Account, AccountType } from '../../../../shared/models/account.model';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.compnent';
 import { Router } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ConfirmService } from '../../../../shared/services/confirm.service';
 
 @Component({
    selector: 'app-account-page',
@@ -19,6 +21,8 @@ export class AccountPageComponent implements OnInit {
    private accountService = inject(AccountService);
    private accountTypeService = inject(AccountTypeService);
    private router = inject(Router);
+   private toastService = inject(ToastService);
+   private confirmService = inject(ConfirmService);
 
    page = 1;
    pageSize = 10;
@@ -81,6 +85,7 @@ export class AccountPageComponent implements OnInit {
 
    submitCreate(): void {
       if (!this.newTypeName || !this.selectedTypeId) return;
+
       this.accountService
          .createAccount({
             tenTaiKhoan: this.newTypeName,
@@ -90,11 +95,14 @@ export class AccountPageComponent implements OnInit {
          .subscribe({
             next: () => {
                this.isCreateModalOpen = false;
+               this.toastService.success(
+                  this.isCreateModalOpen ? 'Tạo thành công.' : 'Cập nhật thành công.',
+               );
                this.loadData();
             },
             error: (err) => {
                const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-               alert(msg);
+               this.toastService.error(msg);
             },
          });
    }
@@ -107,28 +115,59 @@ export class AccountPageComponent implements OnInit {
 
    submitUpdate(): void {
       if (!this.selectedAccount || !this.newTypeName) return;
+      const accountId = this.selectedAccount.id;
       const payload = {
          tenTaiKhoan: this.newTypeName,
          loaiTaiKhoanId: this.selectedAccount.loaiTaiKhoanId,
       };
-
-      this.accountService.updateAccount(this.selectedAccount.id, payload).subscribe({
-         next: (res: any) => {
-            if (res && res.success == true) {
-               this.isUpdateModalOpen = false;
-               this.loadData();
+      this.confirmService
+         .confirm(
+            'Cập nhật Tài khoản',
+            'Bạn có muốn cập nhật tài khoản này?',
+            'OK',
+            'Hủy',
+            'primary',
+         )
+         .then((isConfirmed: boolean) => {
+            if (isConfirmed) {
+               this.accountService.updateAccount(accountId, payload).subscribe({
+                  next: (res: any) => {
+                     if (res && res.success == true) {
+                        this.toastService.success('Cập nhật thành công.');
+                        this.isUpdateModalOpen = false;
+                        this.loadData();
+                     }
+                  },
+                  error: (err) => {
+                     const msg =
+                        err.data.message || err.message || 'Có lỗi xảy ra. Vui lòng thủ lại!';
+                     this.toastService.error(msg);
+                  },
+               });
             }
-         },
-         error: (err) => {
-            const msg = err.data.message || err.message || 'Có lỗi xảy ra. Vui lòng thủ lại!';
-            alert(msg);
-         },
-      });
+         });
    }
 
-   handleDelete(id: number): void {
-      if (confirm('Xóa tài khoản này sẽ ảnh hưởng đến các giao dịch. Bạn chắc chứ?')) {
-         this.accountService.deleteAccount(id).subscribe(() => this.loadData());
+   async handleDelete(id: number) {
+      const isConfirmed = await this.confirmService.confirm(
+         'Xóa Tài khoản',
+         'Bạn có chắc chắn muốn xóa tài khoản này? Hành động này không thể hoàn tác.',
+         'Xóa',
+         'Hủy',
+      );
+      if (isConfirmed) {
+         this.accountService.deleteAccount(id).subscribe({
+            next: () => {
+               this.toastService.success('Xóa thành công.');
+               this.page = 1;
+               this.accounts = [];
+               this.loadData();
+            },
+            error: (err) => {
+               const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
+               this.toastService.error(msg);
+            },
+         });
       }
    }
 
@@ -138,17 +177,20 @@ export class AccountPageComponent implements OnInit {
    }
 
    submitLinkBank(): void {
-      if (!this.linkBankData.soTaiKhoan) return alert('Vui lòng nhập số tài khoản!');
+      if (!this.linkBankData.soTaiKhoan)
+         return this.toastService.warning('Vui lòng nhập số tài khoản!');
+
       this.isLinking = true;
       this.accountService.linkBank(this.linkBankData).subscribe({
          next: () => {
+            this.toastService.success('Đã tạo bank account mẫu và 1 số giao dịch mẫu thành công.');
             this.isLinkBankModalOpen = false;
             this.isLinking = false;
             this.loadData();
          },
          error: (err) => {
             const msg = err.error?.message || 'Đã xảy ra lỗi. Vui lòng thử lại.';
-            alert(msg);
+            this.toastService.error(msg);
             this.isLinking = false;
          },
       });

@@ -50,6 +50,10 @@
          </div>
       </div>
    </div>
+   <div *ngIf="!isLoading && accounts.length === 0" class="empty-message">
+      <ng-icon name="lucideCreditCard"></ng-icon>
+      Chưa có tài khoản nào.
+   </div>
 
    <div class="modal-overlay" *ngIf="isLinkBankModalOpen">
       <div class="modal-content">

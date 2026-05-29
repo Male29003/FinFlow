@@ -14,6 +14,7 @@ import { TransactionModalService } from '../../../core/services/transaction-moda
 import { ToastService } from '../../services/toast.service';
 import { Category } from '../../../shared/models/transaction.model';
 import { Account } from '../../../shared/models/account.model';
+import { ConfirmService } from '../../services/confirm.service';
 
 @Component({
    selector: 'app-transaction-modal',
@@ -28,7 +29,8 @@ export class TransactionModalComponent implements OnInit {
    private accountService = inject(AccountService);
    private typeService = inject(TypeService);
    public modalService = inject(TransactionModalService);
-   private toast = inject(ToastService);
+   private toastService = inject(ToastService);
+   private confirmService = inject(ConfirmService);
 
    accounts: Account[] = [];
    categories: Category[] = [];
@@ -140,7 +142,7 @@ export class TransactionModalComponent implements OnInit {
       this.txForm.patchValue({ tongTien: numberValue });
    }
 
-   submitForm(): void {
+   async submitForm() {
       if (this.txForm.invalid) return;
 
       const payload = { ...this.txForm.value };
@@ -158,21 +160,31 @@ export class TransactionModalComponent implements OnInit {
          ? this.transactionService.updateTransaction(this.selectedId!, payload)
          : this.transactionService.createTransaction(payload);
 
-      request.subscribe({
-         next: (res: any) => {
-            if (res && res.success === false) {
-               return this.toast.error(res.message);
-            }
-            this.toast.success(
-               this.isEditMode ? 'Cập nhật thành công!' : 'Thêm giao dịch thành công!',
-            );
-            this.modalService.notifyChange(); // Báo hiệu đã lưu xong
-            this.modalService.close(); // Đóng modal
-         },
-         error: (err) => {
-            const msg = err.error?.message || err.message || 'Lỗi hệ thống!';
-            this.toast.error(msg);
-         },
-      });
+      const isConfirmed = await this.confirmService.confirm(
+         this.isEditMode ? 'Cập nhật giao dịch' : 'Tạo giao dịch mới',
+         'Bạn có chắc chắn muốn lưu giao dịch này?',
+         'Lưu',
+         'Hủy',
+         'primary',
+      );
+
+      if (isConfirmed) {
+         request.subscribe({
+            next: (res: any) => {
+               if (res && res.success === false) {
+                  return this.toastService.error(res.message);
+               }
+               this.toastService.success(
+                  this.isEditMode ? 'Cập nhật thành công!' : 'Thêm giao dịch thành công!',
+               );
+               this.modalService.notifyChange();
+               this.modalService.close();
+            },
+            error: (err) => {
+               const msg = err.error?.message || err.message || 'Lỗi hệ thống!';
+               this.toastService.error(msg);
+            },
+         });
+      }
    }
 }
