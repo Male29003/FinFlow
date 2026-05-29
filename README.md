@@ -2,7 +2,7 @@
 
 FinFlow là một ứng dụng web quản lý tài chính cá nhân hiện đại, giúp người dùng dễ dàng theo dõi thu nhập, chi tiêu và quản lý ngân sách hiệu quả. Dự án được xây dựng với mục tiêu mang lại trải nghiệm mượt mà, trực quan cùng khả năng đồng bộ dữ liệu theo thời gian thực.
 
-![FinFlow Demo](https://via.placeholder.com/1000x500.png?text=Paste+Link+Anh+Demo+FinFlow+Vao+Day)
+![FinFlow Demo]<img width="1919" height="867" alt="Screenshot 2026-05-28 192151" src="https://github.com/user-attachments/assets/d0c4dedc-0e22-4572-a10d-db4d72737b4b" />
 
 ## Các chức năng chính
 
@@ -23,20 +23,27 @@ FinFlow là một ứng dụng web quản lý tài chính cá nhân hiện đạ
 </p>
 
 ## Giao diện ứng dụng
-
 ### Trang Home
+<img width="1919" height="867" alt="Screenshot 2026-05-28 192151" src="https://github.com/user-attachments/assets/8759d725-ba4f-4920-a062-414e7ddf7b2d" />
 
 ### Trang Dashboard
+<img width="1919" height="870" alt="Screenshot 2026-05-28 192312" src="https://github.com/user-attachments/assets/e35101b9-ccae-479d-835e-249fcd96a248" />
 
 ### Trang Quản lý Giao dịch
+<img width="1919" height="868" alt="Screenshot 2026-05-28 192328" src="https://github.com/user-attachments/assets/99f0a40a-c485-4806-91cd-61ee7ece1e16" />
 
 ### Trang Quản lý Tài khoản
+<img width="1919" height="868" alt="Screenshot 2026-05-28 192450" src="https://github.com/user-attachments/assets/49235a54-7b10-429e-a16e-be0f4913374f" />
 
 ### Trang Quản lý Loại tài khoản
+<img width="1919" height="868" alt="Screenshot 2026-05-28 192502" src="https://github.com/user-attachments/assets/793020d3-f010-40fa-8b55-006177fad01a" />
 
 ### Trang Quản lý Thể loại giao dịch
+<img width="1919" height="867" alt="Screenshot 2026-05-28 192602" src="https://github.com/user-attachments/assets/bf657dfe-4313-4703-b8cb-2acdd2295fd5" />
 
 ### Trang Quản lý Thống kê
+<img width="1919" height="868" alt="Screenshot 2026-05-28 192357" src="https://github.com/user-attachments/assets/260a4011-2c13-4fd1-8bdb-5633a28514ef" />
+<img width="1919" height="869" alt="Screenshot 2026-05-28 192429" src="https://github.com/user-attachments/assets/9c4ffd43-6443-453f-9fcf-b92f44d6964e" />
 
 ## Hướng dẫn cài đặt
 
@@ -110,4 +117,4 @@ ng serve
 
 ## 📫 Thông tin liên hệ
 
-Nếu bạn có bất kỳ thắc mắc nào về dự án hoặc gặp khó khăn khi cài đặt, vui lòng liên hệ với tôi qua email: **nam23009@gmail.com**
+Nếu bạn có bất kỳ thắc mắc nào về dự án hoặc gặp khó khăn khi cài đặt, vui lòng liên hệ với tôi qua email: **namnguyen23009@gmail.com**
